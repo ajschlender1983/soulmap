@@ -13,7 +13,7 @@ import { complete } from "./ai";
  * Connect: the person taps Connect, signs in on the vendor's page, lands back on /evidence; the app
  * registers itself as an OAuth client (dynamic registration) and keeps the tokens on this Mac in
  * data/profiles/<id>/oauth/<cid>.json. Sync: the app calls the vendor's MCP tools, writes each new
- * meeting as "[h:mm:ss] Speaker: text" lines into evidence/cache/<id>/<cid>-inbox/, and the local
+ * meeting as "[h:mm:ss] Speaker: text" lines into evidence/cache/<id>/<cid>-meetings/, and the local
  * evidence CLI imports only the person's own lines from there.
  *
  * Otter rarely labels the account owner by name ("Speaker 2"), so each transcript goes through

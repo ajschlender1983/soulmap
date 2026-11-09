@@ -19,7 +19,7 @@ import { readState, updateState } from "./state";
  *                Granola's local cache, ~/Library/Application Support/Granola/cache-v*.json, if present
  *   claude_ai    the export zip Anthropic emails, once it lands in ~/Downloads; taken in once, by hash
  *   otter        one click: sign in to Otter's MCP server; each sync fetches new meetings into
- *                evidence/cache/<id>/otter-inbox/ (the /soul-otter-sync skill can still drop files there)
+ *                evidence/cache/<id>/otter-meetings/ (the /soul-otter-sync skill can still drop files there)
  */
 const run = promisify(execFile);
 /** The hosted demo has no Mac to connect to; connectors are off there. */
@@ -53,7 +53,8 @@ export type ConnectorStatus = {
 /** What a sync of this connector would import; null when there is nothing. */
 type Probe = { status: Omit<ConnectorStatus, "enabled" | "last_sync">; step?: ImportStep; mark?: string; remote?: RemoteId };
 
-export const otterInbox = (id: string) => path.join(EVIDENCE_DIR, "cache", id.toLowerCase(), "otter-inbox");
+/** The Otter meeting archive (lib/remote-connectors.ts); the /soul-otter-sync skill drops files there too. */
+export const otterInbox = (id: string) => remoteInbox(id, "otter");
 
 async function exists(p: string): Promise<boolean> { try { await fs.access(p); return true; } catch { return false; } }
 
@@ -236,7 +237,10 @@ export async function syncConnectors(id: string, ids: ConnectorId[] | undefined,
     const fresh = new Set<RemoteId>();
     for (const cid of remote) {
       const r = await pullMeetings(id, cid, prefs[cid]?.last_sync, speaker, [state.profile.name, state.profile.email?.split("@")[0] ?? ""].filter(Boolean));
-      if (r.files) fresh.add(cid);
+      // New meetings, or an archive the evidence cache has not taken in yet (an earlier import failed).
+      const newest = Math.max(0, ...(await Promise.all((await fs.readdir(remoteInbox(id, cid)).catch(() => [] as string[])).map((f) => fs.stat(path.join(remoteInbox(id, cid), f)).then((x) => x.mtimeMs, () => 0)))));
+      const cached = await fs.stat(path.join(EVIDENCE_DIR, "cache", id.toLowerCase(), `${cid}.jsonl`)).then((x) => x.mtimeMs, () => 0);
+      if (r.files || newest > cached) fresh.add(cid);
       notes.push(`${cid}: ${r.files} new meetings with your voice (${r.total ?? r.files} in all), ${r.kept} new lines of yours${r.notes.length ? `; skipped: ${r.notes.join("; ")}` : ""}${r.picks?.length ? `\n  you were: ${r.picks.join("\n  you were: ")}` : ""}`);
     }
     const ready: ImportStep[] = [];

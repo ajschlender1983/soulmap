@@ -39,7 +39,7 @@ async function tick() {
     if (await hasActiveJob(id)) continue;
     if (age(log[id]?.synced_at) >= SYNC_EVERY) {
       await mark(id, "synced_at");
-      await syncConnectors(id, undefined, 8).catch((e) => console.error(`[autosync] ${id}: sync failed:`, e instanceof Error ? e.message : e));
+      await syncConnectors(id, undefined, (await aiConfig()).engine === "claude" ? 60 : 4).catch((e) => console.error(`[autosync] ${id}: sync failed:`, e instanceof Error ? e.message : e));
       continue; // the sync runs in the background; the report check waits for the next tick
     }
     // New evidence since the last report: rewrite it, so the results and the soul file include it.
