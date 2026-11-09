@@ -1,0 +1,947 @@
+{
+ "version": "0.2",
+ "estimated_minutes": {
+  "all_items": 59,
+  "with_skips": 47,
+  "assumption": "about 20 seconds per item including the person's answer; Kolbe items run longer, instinct, chronotype and values items shorter. 175 items in all, 141 with every skip taken."
+ },
+ "agent_style": [
+  "One item at a time. Read the item, then the scale cue if the person hasn't used the scale on the last two answers.",
+  "Never explain or interpret an item; if asked, say: 'whatever it means to you, go with your first reaction.'",
+  "Accept a story answer, map it with the voice_answer_parser table, confirm in a few words, move on.",
+  "Never reveal running scores mid-call.",
+  "Each section has its own scale; read the scale cue at least once per section, and on the first item after any skip."
+ ],
+ "sections": [
+  {
+   "key": "welcome",
+   "intro": "Hey {{name}}. This is the Soul Map interview. Five parts, about forty-five minutes, and you can stop and pick up any time, even days later. There are no right answers; go with your gut, and short answers are perfect. Ready?"
+  },
+  {
+   "key": "enneagram",
+   "intro": "Part one: what drives you. I'll say a sentence, and you tell me how true it is of you: not at all, a little, somewhat, mostly, or completely. First reaction is best.",
+   "scale": "Not at all, a little, somewhat, mostly, or completely?",
+   "checkpoint": {
+    "after_item": "E6c",
+    "rule": "Run score_enneagram on the 27 answers so far. If confidence >= 0.6, skip the nine skip_if_confident items and ask only the disambiguation items whose pair are both in `contenders`. If confidence < 0.6, ask everything. Always ask the six instinct items."
+   }
+  },
+  {
+   "key": "attachment",
+   "intro": "Part two: how you connect with people, both close relationships and your team. Same scale: not at all, a little, somewhat, mostly, or completely.",
+   "scale": "Not at all, a little, somewhat, mostly, or completely?",
+   "checkpoint": {
+    "after_item": "V7",
+    "rule": "Run score_attachment on the 12 answers so far. If confidence >= 0.5, skip the four skip_if_confident items."
+   }
+  },
+  {
+   "key": "bigfive",
+   "intro": "Part three: your everyday temperament. Short statements again, and the same scale: not at all, a little, somewhat, mostly, or completely. Answer for how you usually are, not your best day.",
+   "scale": "Not at all, a little, somewhat, mostly, or completely?",
+   "checkpoint": {
+    "after_item": "FS5",
+    "rule": "Run score_bigfive on the 25 answers so far. For each domain with domain_confidence >= 0.7, skip that domain's skip_if_confident item; otherwise ask it."
+   }
+  },
+  {
+   "key": "chronotype",
+   "intro": "Part four, a quick one: your body clock. Two questions about times, then a few statements. Imagine a completely free day: no work, no alarm, nobody to look after.",
+   "scale": "Clock time for the first two, then: not at all, a little, somewhat, mostly, or completely?",
+   "checkpoint": {
+    "after_item": "K8",
+    "rule": "Run score_chronotype on the 10 answers so far. If confidence >= 0.6, skip the two skip_if_confident items."
+   }
+  },
+  {
+   "key": "values",
+   "intro": "Last part: what matters to you. I'll describe a person. Tell me how much that person is like you. Six steps this time: not like me at all, not like me, a little like me, somewhat like me, like me, or very much like me.",
+   "scale": "Not like me at all, not like me, a little like me, somewhat like me, like me, or very much like me?",
+   "checkpoint": {
+    "after_item": "UN3",
+    "rule": "Run score_values on all 21 answers. No skips: every value has only two items. If notes mention a flat profile, ask one follow-up: 'If you had to drop one of these from your life, which goes first?' and record it in the transcript, not the scores."
+   }
+  },
+  {
+   "key": "close",
+   "intro": "That's everything. Your map is complete on screen, and your report and your soul file are ready to build. Thank you for being honest with it."
+  }
+ ],
+ "items": [
+  {
+   "id": "E5a",
+   "bank": "enneagram",
+   "say": "I need a lot of time alone to recharge and think things through.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E2a",
+   "bank": "enneagram",
+   "say": "I can sense what someone needs before they say it, and I move to give it.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E8a",
+   "bank": "enneagram",
+   "say": "I take charge in a group almost without deciding to.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E4a",
+   "bank": "enneagram",
+   "say": "I've always felt different from the people around me, like something others have is missing in me.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E9a",
+   "bank": "enneagram",
+   "say": "I can see everyone's side so clearly that I lose track of my own opinion.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E1a",
+   "bank": "enneagram",
+   "say": "I notice what's wrong or out of place almost before I notice anything else.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E7a",
+   "bank": "enneagram",
+   "say": "I keep my options open, because committing to one thing feels like a trap.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E3a",
+   "bank": "enneagram",
+   "say": "I adjust how I come across depending on who I'm with, so that I succeed.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E6a",
+   "bank": "enneagram",
+   "say": "My mind automatically runs through what could go wrong.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E5b",
+   "bank": "enneagram",
+   "say": "I'd rather understand something completely before I act on it or speak about it.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E2b",
+   "bank": "enneagram",
+   "say": "It's much easier for me to offer help than to ask for it.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E8b",
+   "bank": "enneagram",
+   "say": "I'd rather be respected than liked.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E4b",
+   "bank": "enneagram",
+   "say": "My moods run deep, and I'd rather feel them fully than smooth them over.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E9b",
+   "bank": "enneagram",
+   "say": "Keeping things calm and comfortable matters more to me than getting my way.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E1b",
+   "bank": "enneagram",
+   "say": "I carry a strong inner voice that tells me how things should be done.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E7b",
+   "bank": "enneagram",
+   "say": "When something gets painful or boring, I quickly find something more exciting.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E3b",
+   "bank": "enneagram",
+   "say": "Slowing down and not being productive makes me restless or uneasy.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E6b",
+   "bank": "enneagram",
+   "say": "I test people and ideas before I trust them, and once I do, I'm very loyal.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E5c",
+   "bank": "enneagram",
+   "say": "I keep my needs small so I don't have to depend on anyone.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E2c",
+   "bank": "enneagram",
+   "say": "Being needed by people is a big part of how I feel good about myself.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E8c",
+   "bank": "enneagram",
+   "say": "I have a hard time showing vulnerability, so I show strength instead.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E4c",
+   "bank": "enneagram",
+   "say": "Ordinary or generic is almost painful to me. I need things to feel authentic.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E9c",
+   "bank": "enneagram",
+   "say": "I tend to go along with things, and then feel quietly resentful later.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E1c",
+   "bank": "enneagram",
+   "say": "When I let a standard slide, it bothers me for a long time afterward.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E7c",
+   "bank": "enneagram",
+   "say": "I have far more plans and ideas than I could ever finish.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E3c",
+   "bank": "enneagram",
+   "say": "I care a lot about being seen as successful at what I do.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E6c",
+   "bank": "enneagram",
+   "say": "I second-guess my decisions more than most people seem to.",
+   "answer": "1-5"
+  },
+  {
+   "id": "E5d",
+   "bank": "enneagram",
+   "say": "I'm quick to share my feelings and reactions in the moment.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E2d",
+   "bank": "enneagram",
+   "say": "I'm fine saying no to people even when they're disappointed in me.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E8d",
+   "bank": "enneagram",
+   "say": "I'm uncomfortable with confrontation and avoid it when I can.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E4d",
+   "bank": "enneagram",
+   "say": "I don't spend much time wondering who I really am.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E9d",
+   "bank": "enneagram",
+   "say": "I know exactly what I want, and I say it without hesitating.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E1d",
+   "bank": "enneagram",
+   "say": "I'm comfortable letting things be a bit sloppy if nobody cares.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E7d",
+   "bank": "enneagram",
+   "say": "I can sit with an uncomfortable feeling without distracting myself from it.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E3d",
+   "bank": "enneagram",
+   "say": "I'm fine doing work that nobody will ever see or give me credit for.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "E6d",
+   "bank": "enneagram",
+   "say": "I rarely feel the need to check with anyone before I decide.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "D37",
+   "bank": "enneagram",
+   "say": "Even when I'm having fun, part of me is tracking whether it moves me toward a goal.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    3,
+    7
+   ]
+  },
+  {
+   "id": "D16",
+   "bank": "enneagram",
+   "say": "My carefulness comes from my own standards, more than from worry about what might happen.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    1,
+    6
+   ]
+  },
+  {
+   "id": "D29",
+   "bank": "enneagram",
+   "say": "I'd rather actively step in and help someone than quietly keep the peace.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    2,
+    9
+   ]
+  },
+  {
+   "id": "D59",
+   "bank": "enneagram",
+   "say": "When I withdraw, it's to think and save energy, not to avoid conflict.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "D46",
+   "bank": "enneagram",
+   "say": "Under stress, what I feel is more like longing and envy than fear and suspicion.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "D83",
+   "bank": "enneagram",
+   "say": "I'd rather be the one in control than the one who looks the best.",
+   "answer": "1-5",
+   "ask_if_contending": [
+    8,
+    3
+   ]
+  },
+  {
+   "id": "I_sp1",
+   "bank": "enneagram",
+   "say": "I think about money, health, comfort and safety more than most people I know.",
+   "answer": "1-5"
+  },
+  {
+   "id": "I_sp2",
+   "bank": "enneagram",
+   "say": "A good day is one where my body, my space and my resources all feel taken care of.",
+   "answer": "1-5"
+  },
+  {
+   "id": "I_so1",
+   "bank": "enneagram",
+   "say": "I naturally track who's connected to whom, and where I fit in a group.",
+   "answer": "1-5"
+  },
+  {
+   "id": "I_so2",
+   "bank": "enneagram",
+   "say": "Contributing to something bigger than me, like a team or a community, is what makes work meaningful.",
+   "answer": "1-5"
+  },
+  {
+   "id": "I_sx1",
+   "bank": "enneagram",
+   "say": "I'm drawn to intensity. One deep connection beats a room full of acquaintances.",
+   "answer": "1-5"
+  },
+  {
+   "id": "I_sx2",
+   "bank": "enneagram",
+   "say": "I lose interest fast when there's no spark or chemistry in a situation.",
+   "answer": "1-5"
+  },
+  {
+   "id": "A1",
+   "bank": "attachment",
+   "say": "I worry that the people I'm close to don't care about me as much as I care about them.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V1",
+   "bank": "attachment",
+   "say": "I prefer not to depend on anyone, including a partner.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A5",
+   "bank": "attachment",
+   "say": "If a teammate takes a while to reply, I start wondering if I did something wrong.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V5",
+   "bank": "attachment",
+   "say": "I'd rather struggle through a problem alone than ask a teammate for help.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A2",
+   "bank": "attachment",
+   "say": "When someone I love goes distant, I can't settle until I know we're okay.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V2",
+   "bank": "attachment",
+   "say": "I get uncomfortable when someone wants to be very emotionally close to me.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A6",
+   "bank": "attachment",
+   "say": "I read a lot into a colleague's tone, especially when their feedback is short.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V6",
+   "bank": "attachment",
+   "say": "I keep work relationships strictly professional and keep my inner life out of them.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A3",
+   "bank": "attachment",
+   "say": "I rarely worry about being left by my partner or close friends.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V3",
+   "bank": "attachment",
+   "say": "It's easy for me to open up about what I'm feeling to the people I love.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A7",
+   "bank": "attachment",
+   "say": "I feel secure about my standing on a team without needing to hear it.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "V7",
+   "bank": "attachment",
+   "say": "I'm comfortable telling a colleague when I'm struggling with something.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "A4",
+   "bank": "attachment",
+   "say": "I need more reassurance than most people that I'm valued.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "V4",
+   "bank": "attachment",
+   "say": "When things get intense, my instinct is to pull back and handle it alone.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "A8",
+   "bank": "attachment",
+   "say": "Being left out of a meeting or a thread stings more than I'd like to admit.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "V8",
+   "bank": "attachment",
+   "say": "When a project gets emotionally charged, I check out and just do the task.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "FO1",
+   "bank": "bigfive",
+   "say": "I have a vivid imagination.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FC1",
+   "bank": "bigfive",
+   "say": "I like things to be in order.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FE1",
+   "bank": "bigfive",
+   "say": "I'm the life of the party.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FA1",
+   "bank": "bigfive",
+   "say": "I sympathize with others' feelings.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FS1",
+   "bank": "bigfive",
+   "say": "I'm relaxed most of the time.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FO2",
+   "bank": "bigfive",
+   "say": "I spend time reflecting on things.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FC2",
+   "bank": "bigfive",
+   "say": "I get chores done right away.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FE2",
+   "bank": "bigfive",
+   "say": "I take charge.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FA2",
+   "bank": "bigfive",
+   "say": "I take time out for others.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FS2",
+   "bank": "bigfive",
+   "say": "I rarely feel down.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FO3",
+   "bank": "bigfive",
+   "say": "I'm full of ideas.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FC3",
+   "bank": "bigfive",
+   "say": "I follow a schedule.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FE3",
+   "bank": "bigfive",
+   "say": "I'm the one who starts conversations.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FA3",
+   "bank": "bigfive",
+   "say": "I make people feel at ease.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FS3",
+   "bank": "bigfive",
+   "say": "I rarely get irritated.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FO4",
+   "bank": "bigfive",
+   "say": "I'm not interested in abstract ideas.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FC4",
+   "bank": "bigfive",
+   "say": "I leave my belongings lying around.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FE4",
+   "bank": "bigfive",
+   "say": "I don't like to draw attention to myself.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FA4",
+   "bank": "bigfive",
+   "say": "I'm not really interested in other people's problems.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FS4",
+   "bank": "bigfive",
+   "say": "I get stressed out easily.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FO5",
+   "bank": "bigfive",
+   "say": "I don't have much of an imagination.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FC5",
+   "bank": "bigfive",
+   "say": "I often forget to put things back in their proper place.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FE5",
+   "bank": "bigfive",
+   "say": "I wait for others to lead the way.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FA5",
+   "bank": "bigfive",
+   "say": "I feel little concern for others.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FS5",
+   "bank": "bigfive",
+   "say": "I worry about things.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "FO6",
+   "bank": "bigfive",
+   "say": "I prefer to stick with things that I know.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "FC6",
+   "bank": "bigfive",
+   "say": "I let my duties slide.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "FE6",
+   "bank": "bigfive",
+   "say": "I keep in the background.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "FA6",
+   "bank": "bigfive",
+   "say": "I sometimes insult people.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "FS6",
+   "bank": "bigfive",
+   "say": "I have frequent mood swings.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "K_wake",
+   "bank": "chronotype",
+   "say": "If you were completely free to plan your day, no work, no alarm, no one to look after, what time would you naturally get up?",
+   "answer": "clock",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K_bed",
+   "bank": "chronotype",
+   "say": "And on that same free day, what time would you go to sleep?",
+   "answer": "clock",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K1",
+   "bank": "chronotype",
+   "say": "I feel sharpest in the first few hours after I wake up.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K2",
+   "bank": "chronotype",
+   "say": "I do my best thinking late in the evening, after most people have wound down.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K3",
+   "bank": "chronotype",
+   "say": "Getting up early is easy for me, even without an alarm.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K4",
+   "bank": "chronotype",
+   "say": "When I have to be up early, I feel groggy for a long time.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K5",
+   "bank": "chronotype",
+   "say": "By ten at night I'm usually done. My brain switches off.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K6",
+   "bank": "chronotype",
+   "say": "I could happily stay up past midnight most nights and not feel it the next day.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K7",
+   "bank": "chronotype",
+   "say": "If I had a demanding two-hour task, I'd choose to do it in the morning.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K8",
+   "bank": "chronotype",
+   "say": "A seven a.m. workout sounds awful. I'd rather train in the evening.",
+   "answer": "1-5",
+   "skip_if_confident": false
+  },
+  {
+   "id": "K9",
+   "bank": "chronotype",
+   "say": "I'm hungry for breakfast within the first hour of waking.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "K10",
+   "bank": "chronotype",
+   "say": "On weekends I sleep in a lot later than on workdays.",
+   "answer": "1-5",
+   "skip_if_confident": true
+  },
+  {
+   "id": "SD1",
+   "bank": "values",
+   "say": "Someone who needs to come up with their own ideas and do things their own way. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "ST1",
+   "bank": "values",
+   "say": "Someone who loves surprises and is always looking for new things to do. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "HE1",
+   "bank": "values",
+   "say": "Someone who wants to enjoy life and have a good time. Pleasure matters a lot to them. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "AC1",
+   "bank": "values",
+   "say": "Someone who wants to show how capable they are and have people admire what they do. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "PO1",
+   "bank": "values",
+   "say": "Someone who wants to be wealthy, with expensive things and money to spare. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "SE1",
+   "bank": "values",
+   "say": "Someone who needs to live in safe surroundings and avoids anything that might put them at risk. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "CO1",
+   "bank": "values",
+   "say": "Someone who believes people should follow the rules even when no one is watching. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "TR1",
+   "bank": "values",
+   "say": "Someone who thinks it's important to be humble and modest, and not to draw attention to themselves. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "BE1",
+   "bank": "values",
+   "say": "Someone who goes out of their way to help the people close to them and look after their wellbeing. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "UN1",
+   "bank": "values",
+   "say": "Someone who thinks everyone in the world should be treated equally and have the same chances. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "SD2",
+   "bank": "values",
+   "say": "Someone who wants to decide for themselves what they do, and values being free and independent. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "ST2",
+   "bank": "values",
+   "say": "Someone who seeks out adventure and risk, and wants an exciting life. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "HE2",
+   "bank": "values",
+   "say": "Someone who looks for every chance to indulge and treat themselves. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "AC2",
+   "bank": "values",
+   "say": "Someone who wants to be very successful and get ahead. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "PO2",
+   "bank": "values",
+   "say": "Someone who wants to be in charge and have others do what they say. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "SE2",
+   "bank": "values",
+   "say": "Someone who thinks it's very important that the country is safe and the rules are enforced. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "CO2",
+   "bank": "values",
+   "say": "Someone who always behaves properly and avoids doing anything others would say is wrong. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "TR2",
+   "bank": "values",
+   "say": "Someone who keeps the customs their family or faith handed down to them. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "BE2",
+   "bank": "values",
+   "say": "Someone who is loyal to their friends and wants to devote themselves to the people they care about. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "UN2",
+   "bank": "values",
+   "say": "Someone who listens to people who are different from them and tries to understand them, even when they disagree. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  },
+  {
+   "id": "UN3",
+   "bank": "values",
+   "say": "Someone who cares deeply about nature and looking after the environment. How much like you is that?",
+   "answer": "1-6",
+   "skip_if_confident": false
+  }
+ ],
+ "note_v1": "Kolbe and Working Genius are paid lenses with no proxy in v1; their banks stay in the repo but are excluded from the plan unless the person has bought the real instrument and enters its result."
+}

@@ -1,0 +1,29 @@
+{
+  "bank": "attachment",
+  "version": "0.1",
+  "scale": {
+    "type": "agreement_1_5",
+    "prompt_suffix": "Not at all, a little, somewhat, mostly, or completely?",
+    "labels": { "1": "not at all", "2": "a little", "3": "somewhat", "4": "mostly", "5": "completely" }
+  },
+  "scoring_notes": "Two dimensions, Anxiety and Avoidance, each the mean of 8 items on 1-5 after reversing negative-polarity items (6 minus answer). Midpoint 3.0 splits low/high. Style: low/low secure, high anxiety + low avoidance anxious, low anxiety + high avoidance avoidant, high/high fearful_avoidant. Each dimension has 4 close-relationship items and 4 work-collaboration items so the report can speak to both contexts. See scoring.ts.",
+  "items": [
+    { "id": "A1", "dimension": "anxiety", "context": "close", "text": "I worry that the people I'm close to don't care about me as much as I care about them.", "polarity": 1 },
+    { "id": "A2", "dimension": "anxiety", "context": "close", "text": "When someone I love goes distant, I can't settle until I know we're okay.", "polarity": 1 },
+    { "id": "A3", "dimension": "anxiety", "context": "close", "text": "I rarely worry about being left by my partner or close friends.", "polarity": -1 },
+    { "id": "A4", "dimension": "anxiety", "context": "close", "text": "I need more reassurance than most people that I'm valued.", "polarity": 1 },
+    { "id": "A5", "dimension": "anxiety", "context": "work", "text": "If a teammate takes a while to reply, I start wondering if I did something wrong.", "polarity": 1 },
+    { "id": "A6", "dimension": "anxiety", "context": "work", "text": "I read a lot into a colleague's tone, especially when their feedback is short.", "polarity": 1 },
+    { "id": "A7", "dimension": "anxiety", "context": "work", "text": "I feel secure about my standing on a team without needing to hear it.", "polarity": -1 },
+    { "id": "A8", "dimension": "anxiety", "context": "work", "text": "Being left out of a meeting or a thread stings more than I'd like to admit.", "polarity": 1 },
+
+    { "id": "V1", "dimension": "avoidance", "context": "close", "text": "I prefer not to depend on anyone, including a partner.", "polarity": 1 },
+    { "id": "V2", "dimension": "avoidance", "context": "close", "text": "I get uncomfortable when someone wants to be very emotionally close to me.", "polarity": 1 },
+    { "id": "V3", "dimension": "avoidance", "context": "close", "text": "It's easy for me to open up about what I'm feeling to the people I love.", "polarity": -1 },
+    { "id": "V4", "dimension": "avoidance", "context": "close", "text": "When things get intense, my instinct is to pull back and handle it alone.", "polarity": 1 },
+    { "id": "V5", "dimension": "avoidance", "context": "work", "text": "I'd rather struggle through a problem alone than ask a teammate for help.", "polarity": 1 },
+    { "id": "V6", "dimension": "avoidance", "context": "work", "text": "I keep work relationships strictly professional and keep my inner life out of them.", "polarity": 1 },
+    { "id": "V7", "dimension": "avoidance", "context": "work", "text": "I'm comfortable telling a colleague when I'm struggling with something.", "polarity": -1 },
+    { "id": "V8", "dimension": "avoidance", "context": "work", "text": "When a project gets emotionally charged, I check out and just do the task.", "polarity": 1 }
+  ]
+}

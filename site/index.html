@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Soul Map</title>
+<meta name="description" content="A 40 minute interview on your Mac that maps how you work, and writes a soul file your AI tools read so they work the way you do. Free and open source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b0b0d; --soft:#14141a; --ink:#f6f4ef; --muted:#9a9aa3; --line:#25252c; --accent:#ff6300; }
+  @media (prefers-color-scheme: light) { :root { --bg:#f6f4ef; --soft:#ffffff; --ink:#141418; --muted:#5e5e66; --line:#d9d5cc; --accent:#d94f00; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:400 17px/1.55 Inter, system-ui, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 72px; }
+  .eyebrow { color:var(--accent); font-weight:500; letter-spacing:.04em; margin:0 0 12px; }
+  h1 { font:500 clamp(40px, 9vw, 64px)/1.05 Fraunces, Georgia, serif; margin:0 0 20px; }
+  h2 { font:500 26px/1.2 Fraunces, Georgia, serif; margin:48px 0 12px; }
+  p, li { color:var(--ink); }
+  .muted { color:var(--muted); }
+  .cmd { display:flex; gap:8px; align-items:stretch; margin:20px 0 8px; }
+  .cmd code { flex:1; min-width:0; overflow-x:auto; white-space:nowrap; background:var(--soft); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font:14px/1.4 ui-monospace, Menlo, monospace; }
+  button { background:var(--accent); color:#0b0b0d; border:0; border-radius:12px; padding:0 18px; font:500 15px Inter, sans-serif; cursor:pointer; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 6px 0; }
+  .two { display:grid; gap:12px; grid-template-columns: 1fr; }
+  @media (min-width: 600px) { .two { grid-template-columns: 1fr 1fr; } }
+  .card { background:var(--soft); border:1px solid var(--line); border-radius:16px; padding:18px; }
+  .card h3 { margin:0 0 6px; font:500 17px Inter, sans-serif; }
+  .card p { margin:0; font-size:15px; }
+  a { color:var(--accent); }
+  footer { margin-top:56px; font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Know Thyself.</p>
+  <h1>The Soul Map</h1>
+  <p>A 40 minute interview on your Mac that maps how you work. It writes two documents: a report for you, and a soul file your AI tools read so they work the way you do.</p>
+  <p class="muted">Human Design and Gene Keys from your birth data. Enneagram, attachment, Big Five, chronotype and values from your answers. Your Otter and Granola meetings, if you connect them.</p>
+
+  <h2>Install on your Mac</h2>
+  <p>Open Terminal, paste this line and press Return.</p>
+  <div class="cmd"><code id="cmd">curl -fsSL https://soulmap.nextmissionsi.com/install.sh | bash</code><button type="button" id="copy">Copy</button></div>
+  <p class="muted">About 5 minutes. No admin password. It opens the Soul Map in your browser when it is done.</p>
+
+  <h2>Who does the thinking</h2>
+  <p>You pick one when you start. You can change it later.</p>
+  <div class="two">
+    <div class="card"><h3>Claude (recommended)</h3><p>Claude by Anthropic reads your answers and writes your report. Uses your own Anthropic API key, about 30 cents a report.</p></div>
+    <div class="card"><h3>Only this Mac</h3><p>A free model runs on your Mac. Nothing you say leaves it. One download of about 5 GB.</p></div>
+  </div>
+
+  <h2>What you get</h2>
+  <ol>
+    <li>Your report: how you are built, what drives you, how you work best, where you get stuck.</li>
+    <li>Your soul file: instructions for Claude, ChatGPT and other AI tools on how to work with you. One click adds it to Claude Code.</li>
+    <li>Results that stay current: connected meetings sync every day, and the report updates when the picture changes.</li>
+  </ol>
+
+  <h2>Your data</h2>
+  <ul>
+    <li>Your answers, chart and reports are stored on your Mac.</li>
+    <li>From meetings, only your own lines are kept. Other people's words are never stored or sent.</li>
+    <li>Delete everything from one screen, any time.</li>
+  </ul>
+
+  <footer class="muted">Free and open source (MIT). Code: <a href="https://github.com/maximilian-dollaz/soulmap">github.com/maximilian-dollaz/soulmap</a>. Needs macOS.</footer>
+</main>
+<script>
+  document.getElementById("copy").addEventListener("click", async (e) => {
+    try { await navigator.clipboard.writeText(document.getElementById("cmd").textContent); e.target.textContent = "Copied"; }
+    catch { e.target.textContent = "Select and copy"; }
+    setTimeout(() => { e.target.textContent = "Copy"; }, 2000);
+  });
+</script>
+</body>
+</html>

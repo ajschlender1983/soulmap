@@ -1,0 +1,57 @@
+{
+  "bank": "working_genius",
+  "version": "0.1",
+  "disclaimer": "Proxy inspired by the six-kinds-of-work model popularized by Patrick Lencioni (Wonder, Invention, Discernment, Galvanizing, Enablement, Tenacity). Not the licensed Working Genius assessment; every item here is original wording written from the public description of the six categories.",
+  "scale": {
+    "type": "energy_1_5",
+    "prompt_suffix": "One to five: one is 'drains me', three is neutral, five is 'really energizes me'.",
+    "labels": { "1": "drains me", "2": "a bit draining", "3": "neutral", "4": "energizing", "5": "really energizes me" }
+  },
+  "competency_scale": {
+    "type": "agreement_1_5",
+    "prompt_suffix": "Not at all, a little, somewhat, mostly, or completely?",
+    "labels": { "1": "not at all", "2": "a little", "3": "somewhat", "4": "mostly", "5": "completely" }
+  },
+  "types": {
+    "wonder": { "name": "Wonder", "short": "asks the big questions", "description": "Pondering possibility and potential; noticing what could be better and asking why." },
+    "invention": { "name": "Invention", "short": "creates from nothing", "description": "Coming up with original ideas and novel solutions to problems." },
+    "discernment": { "name": "Discernment", "short": "judges what will work", "description": "Evaluating ideas with instinct and judgment; sensing which ones have legs." },
+    "galvanizing": { "name": "Galvanizing", "short": "rallies people", "description": "Inspiring and organizing people to take action on an idea." },
+    "enablement": { "name": "Enablement", "short": "makes it possible", "description": "Providing help and support when it's needed, in whatever form it's needed." },
+    "tenacity": { "name": "Tenacity", "short": "gets it finished", "description": "Pushing work through to completion and making sure it achieves the result." }
+  },
+  "bands": { "genius": "top 2: energizing and usually skilled", "competency": "middle 2: can do it, neutral on energy", "frustration": "bottom 2: draining, even when competent" },
+  "scoring_notes": "Energy score per type = mean of its 3 energy items on 1-5, mapped to 0-100 as (mean - 1) / 4 * 100. Competency score = the single competency item, same mapping. Types are ranked by energy, ties broken by competency, then by bank order. Ranks 1-2 are genius, 3-4 competency, 5-6 frustration. Confidence = the smaller of the two gaps that define the bands (rank 2 vs 3, rank 4 vs 5), 10 points = full, times a coverage factor. Notes flag types with high competency but low energy (burnout risk) and high energy but low competency (worth developing). See scoring.ts.",
+  "items": [
+    { "id": "W1", "genius": "wonder", "kind": "energy", "text": "Sitting with a big open question, like 'what could this business become', with no need to answer it yet.", "polarity": 1 },
+    { "id": "W2", "genius": "wonder", "kind": "energy", "text": "Noticing that something in how we work isn't quite right, and wondering out loud why nobody has looked at it.", "polarity": 1 },
+    { "id": "W3", "genius": "wonder", "kind": "energy", "text": "Spending a whole afternoon exploring possibilities with no deliverable at the end.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "I1", "genius": "invention", "kind": "energy", "text": "Being handed a blank page and asked to come up with something that doesn't exist yet.", "polarity": 1 },
+    { "id": "I2", "genius": "invention", "kind": "energy", "text": "Brainstorming ten different ways to solve a problem nobody has cracked.", "polarity": 1 },
+    { "id": "I3", "genius": "invention", "kind": "energy", "text": "Designing a new process, product or plan from nothing.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "D1", "genius": "discernment", "kind": "energy", "text": "Being shown three rough ideas and asked which one has legs.", "polarity": 1 },
+    { "id": "D2", "genius": "discernment", "kind": "energy", "text": "Giving someone honest feedback on their plan before they commit to it.", "polarity": 1 },
+    { "id": "D3", "genius": "discernment", "kind": "energy", "text": "Spotting the flaw in a proposal that everyone else is excited about.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "G1", "genius": "galvanizing", "kind": "energy", "text": "Getting a room of people fired up about an idea so they want to join in.", "polarity": 1 },
+    { "id": "G2", "genius": "galvanizing", "kind": "energy", "text": "Reaching out to people one by one to get them on board with something new.", "polarity": 1 },
+    { "id": "G3", "genius": "galvanizing", "kind": "energy", "text": "Being the one who says 'let's go' and pulls everyone into motion.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "N1", "genius": "enablement", "kind": "energy", "text": "Someone asks for help on their project and you drop what you're doing to pitch in.", "polarity": 1 },
+    { "id": "N2", "genius": "enablement", "kind": "energy", "text": "Being the person a team leans on to make things happen behind the scenes.", "polarity": 1 },
+    { "id": "N3", "genius": "enablement", "kind": "energy", "text": "Noticing what a teammate needs and quietly handling it without being asked.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "T1", "genius": "tenacity", "kind": "energy", "text": "The last ten percent of a project: closing out every loose end until it's truly done.", "polarity": 1 },
+    { "id": "T2", "genius": "tenacity", "kind": "energy", "text": "Grinding through the boring part of a task because it has to get finished.", "polarity": 1 },
+    { "id": "T3", "genius": "tenacity", "kind": "energy", "text": "Keeping a list of open items and driving each one to closed.", "polarity": 1, "skip_if_confident": true },
+
+    { "id": "WC", "genius": "wonder", "kind": "competency", "text": "People tell me I ask the questions nobody else thought to ask.", "polarity": 1 },
+    { "id": "IC", "genius": "invention", "kind": "competency", "text": "I'm genuinely good at coming up with original ideas.", "polarity": 1 },
+    { "id": "DC", "genius": "discernment", "kind": "competency", "text": "My gut calls about which ideas will work tend to be right.", "polarity": 1 },
+    { "id": "GC", "genius": "galvanizing", "kind": "competency", "text": "I'm good at rallying people around a cause.", "polarity": 1 },
+    { "id": "NC", "genius": "enablement", "kind": "competency", "text": "I'm reliable support. People know they can hand me things and they'll get done.", "polarity": 1 },
+    { "id": "TC", "genius": "tenacity", "kind": "competency", "text": "I'm good at finishing what I start, down to the last detail.", "polarity": 1 }
+  ]
+}

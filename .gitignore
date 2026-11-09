@@ -1,0 +1,20 @@
+# personal data never goes to the repo
+/data/
+/inputs/
+/report/
+analysis/user_messages.jsonl
+analysis/working-style-from-llm.md
+analysis/working-style-from-meetings.md
+analysis/working-style-from-claude-ai.md
+# secrets and build output
+app/.env.local
+app/node_modules/
+app/.next/
+analysis/hdcalc/.venv/
+**/__pycache__/
+.DS_Store
+# evidence pipeline: raw turns and scored output stay local
+evidence/cache/
+evidence/out/
+evidence/.venv/
+app/.vercel/

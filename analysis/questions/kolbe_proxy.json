@@ -1,0 +1,158 @@
+{
+  "bank": "kolbe_proxy",
+  "version": "0.1",
+  "disclaimer": "Proxy modeled on the public structure of a Kolbe A Index result (four Action Modes, 1-10 per mode, three zones). Not the licensed instrument; items and labels are original wording.",
+  "scale": {
+    "type": "three_option",
+    "prompt_suffix": "Which one is closest to what you actually do, not what you think you should do?",
+    "zones": { "counteract": [1, 3], "respond": [4, 6], "initiate": [7, 10] }
+  },
+  "modes": {
+    "fact_finder": {
+      "name": "Fact Finder",
+      "question": "How you gather and share information",
+      "labels": { "counteract": "Simplify", "respond": "Explain", "initiate": "Specify" },
+      "sequence_verb": { "counteract": "summarize and clarify the bottom line", "respond": "explain the essentials", "initiate": "research the specifics" },
+      "conables": {
+        "Simplify": { "do": ["Summarize", "Get right to the point", "Estimate and approximate", "Bottom-line the options"], "dont": ["Get bogged down in detail", "Justify at length", "Pile up background evidence"] },
+        "Explain": { "do": ["Give the main points with enough context", "Bridge detail people and big-picture people", "Ask for the specifics you actually need"], "dont": ["Over-research when a summary will do", "Skip context others need"] },
+        "Specify": { "do": ["Research thoroughly before deciding", "Define terms precisely", "Document the reasoning"], "dont": ["Get rushed into deciding without data", "Skim what matters", "Guess when you could verify"] }
+      }
+    },
+    "follow_thru": {
+      "name": "Follow Thru",
+      "question": "How you organize",
+      "labels": { "counteract": "Adapt", "respond": "Maintain", "initiate": "Systematize" },
+      "sequence_verb": { "counteract": "look for shortcuts", "respond": "keep things in reasonable order", "initiate": "design the system" },
+      "conables": {
+        "Adapt": { "do": ["Find shortcuts", "Juggle several things at once", "Keep what you use visible and within reach", "Deal with tasks as they come"], "dont": ["Force yourself into rigid routines", "Over-schedule", "Repeat a pattern just because it's the pattern"] },
+        "Maintain": { "do": ["Keep a loose order", "Follow systems others set up", "Tidy as you go"], "dont": ["Lock into a single way of working", "Build elaborate systems you won't keep"] },
+        "Systematize": { "do": ["Build checklists and templates", "Finish one thing before starting the next", "Sequence the work and protect the sequence"], "dont": ["Let interruptions scatter the plan", "Start without a structure"] }
+      }
+    },
+    "quick_start": {
+      "name": "Quick Start",
+      "question": "How you deal with risk and uncertainty",
+      "labels": { "counteract": "Stabilize", "respond": "Modify", "initiate": "Innovate" },
+      "sequence_verb": { "counteract": "protect what already works", "respond": "pilot a change", "initiate": "brainstorm and experiment" },
+      "conables": {
+        "Stabilize": { "do": ["Protect what works", "Prepare ahead", "Plan the change before making it"], "dont": ["Get pushed into last-minute changes", "Commit before the risk is clear"] },
+        "Modify": { "do": ["Pilot changes on something small", "Balance deadlines with preparation", "Improvise when you must, prepare when you can"], "dont": ["Chase every new idea", "Refuse every new idea"] },
+        "Innovate": { "do": ["Experiment", "Race the clock", "Promote alternatives", "Take on challenges"], "dont": ["Stick to the script", "Hesitate", "Second-guess yourself", "Fear failing"] }
+      }
+    },
+    "implementor": {
+      "name": "Implementor",
+      "question": "How you handle space and tangibles",
+      "labels": { "counteract": "Imagine", "respond": "Restore", "initiate": "Build" },
+      "sequence_verb": { "counteract": "picture the solution", "respond": "check the materials and fix what's there", "initiate": "build a working model" },
+      "conables": {
+        "Imagine": { "do": ["Describe solutions in words and visuals", "Work virtually", "Delegate the physical build"], "dont": ["Commit to hands-on construction", "Judge a solution only by its physical form"] },
+        "Restore": { "do": ["Fix things that break", "Use good tools", "Demonstrate with props or photos", "Walk through the real space before concluding"], "dont": ["Build from scratch what could be repaired", "Use lousy equipment"] },
+        "Build": { "do": ["Prototype physically", "Use tools and materials to think", "Make a model before explaining"], "dont": ["Present without something tangible", "Leave the build to someone else"] }
+      }
+    }
+  },
+  "scoring_notes": "Each item has three options tagged with a zone. Per mode: net = (initiate count minus counteract count) / answered; score = round(5.5 + 4.5 * net), clamped 1-10. All-initiate -> 10, all-counteract -> 1, all-respond or balanced -> 6 (respond zone). Label = zone of the final score. Mode confidence = share of answers in the modal zone. Option order is varied per item so position never signals the zone. See scoring.ts.",
+  "items": [
+    { "id": "FF1", "mode": "fact_finder", "text": "You're handed a new project. What do you actually do first?", "options": [
+      { "key": "a", "text": "Get the gist and move. I'll fill in details later.", "zone": "counteract" },
+      { "key": "b", "text": "Gather enough to be sure it's right, then start.", "zone": "respond" },
+      { "key": "c", "text": "Dig in. I want the history, the data and the specifics before anything.", "zone": "initiate" } ] },
+    { "id": "FF2", "mode": "fact_finder", "text": "Someone sends you a long report. What do you do with it?", "options": [
+      { "key": "a", "text": "Read it carefully end to end and take notes.", "zone": "initiate" },
+      { "key": "b", "text": "Read the summary and the parts that apply to me.", "zone": "respond" },
+      { "key": "c", "text": "Skim it, or ask someone for the bottom line.", "zone": "counteract" } ] },
+    { "id": "FF3", "mode": "fact_finder", "text": "When you explain something to a teammate, how do you do it?", "options": [
+      { "key": "a", "text": "Short and punchy. The headline, then done.", "zone": "counteract" },
+      { "key": "b", "text": "The main points, with a bit of context.", "zone": "respond" },
+      { "key": "c", "text": "Thoroughly. Background and reasons, so it's precise.", "zone": "initiate" } ] },
+    { "id": "FF4", "mode": "fact_finder", "text": "You need to decide, and the information is incomplete. What happens?", "options": [
+      { "key": "a", "text": "I hold off until I've researched it properly.", "zone": "initiate" },
+      { "key": "b", "text": "I decide on a good estimate. Close enough is fine.", "zone": "counteract" },
+      { "key": "c", "text": "I get the key missing pieces, then decide.", "zone": "respond" } ] },
+    { "id": "FF5", "mode": "fact_finder", "text": "You're buying something expensive, like a camera or a car. How do you go about it?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Compare specs, read reviews, maybe build a spreadsheet.", "zone": "initiate" },
+      { "key": "b", "text": "Check a couple of trusted sources and go.", "zone": "respond" },
+      { "key": "c", "text": "Trust my gut and the first good recommendation.", "zone": "counteract" } ] },
+    { "id": "FF6", "mode": "fact_finder", "text": "A friend asks why you believe something. How do you answer?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "I explain my reasoning in a sentence or two.", "zone": "respond" },
+      { "key": "b", "text": "I walk them through the evidence step by step.", "zone": "initiate" },
+      { "key": "c", "text": "The short version. I don't like justifying at length.", "zone": "counteract" } ] },
+
+    { "id": "FT1", "mode": "follow_thru", "text": "Picture your desk, or your computer desktop. What does it look like most days?", "options": [
+      { "key": "a", "text": "Everything has a place and a system.", "zone": "initiate" },
+      { "key": "b", "text": "Mostly tidy, with a few piles.", "zone": "respond" },
+      { "key": "c", "text": "Organized chaos. I know roughly where things are.", "zone": "counteract" } ] },
+    { "id": "FT2", "mode": "follow_thru", "text": "You start a repeating task, like a weekly report. What do you do?", "options": [
+      { "key": "a", "text": "Do it differently each time, depending on what's going on.", "zone": "counteract" },
+      { "key": "b", "text": "Build a template or checklist so it runs the same every time.", "zone": "initiate" },
+      { "key": "c", "text": "Follow a loose routine, and change it when needed.", "zone": "respond" } ] },
+    { "id": "FT3", "mode": "follow_thru", "text": "You're in the middle of a task and get interrupted. How does that land?", "options": [
+      { "key": "a", "text": "Fine. I switch, and switch back whenever.", "zone": "counteract" },
+      { "key": "b", "text": "A bit annoying, but I handle it and come back.", "zone": "respond" },
+      { "key": "c", "text": "It throws me. I need to finish what I started.", "zone": "initiate" } ] },
+    { "id": "FT4", "mode": "follow_thru", "text": "How many projects do you like running at once?", "options": [
+      { "key": "a", "text": "One at a time, done properly, before the next.", "zone": "initiate" },
+      { "key": "b", "text": "Several. I like juggling and jumping between them.", "zone": "counteract" },
+      { "key": "c", "text": "A few, as long as they're reasonably in order.", "zone": "respond" } ] },
+    { "id": "FT5", "mode": "follow_thru", "text": "A process at work is clunky, but it's the official way. What do you do?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Follow it mostly, and suggest fixes.", "zone": "respond" },
+      { "key": "b", "text": "Find a shortcut or work around it.", "zone": "counteract" },
+      { "key": "c", "text": "Follow it, and if it's broken, redesign the whole process.", "zone": "initiate" } ] },
+    { "id": "FT6", "mode": "follow_thru", "text": "How do you plan a trip?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Detailed itinerary, bookings, backup plans.", "zone": "initiate" },
+      { "key": "b", "text": "Book a flight and wing it.", "zone": "counteract" },
+      { "key": "c", "text": "Key things booked, the rest figured out there.", "zone": "respond" } ] },
+
+    { "id": "QS1", "mode": "quick_start", "text": "You get an idea at ten at night. What happens next?", "options": [
+      { "key": "a", "text": "I start on it right then.", "zone": "initiate" },
+      { "key": "b", "text": "I write it down and look at it in the morning.", "zone": "respond" },
+      { "key": "c", "text": "I sit with it a while to see if it's really worth doing.", "zone": "counteract" } ] },
+    { "id": "QS2", "mode": "quick_start", "text": "A deadline is a week away. When do you really get going?", "options": [
+      { "key": "a", "text": "Right away, steadily, so there's no rush at the end.", "zone": "counteract" },
+      { "key": "b", "text": "The last day or two. Pressure is where I do my best work.", "zone": "initiate" },
+      { "key": "c", "text": "Somewhere in the middle, with a push at the end.", "zone": "respond" } ] },
+    { "id": "QS3", "mode": "quick_start", "text": "Someone proposes a big change to how the team works. Your first reaction?", "options": [
+      { "key": "a", "text": "Interesting. Let's pilot it on something small.", "zone": "respond" },
+      { "key": "b", "text": "Why change what works? Show me it's safe first.", "zone": "counteract" },
+      { "key": "c", "text": "Let's try it now and fix it as we go.", "zone": "initiate" } ] },
+    { "id": "QS4", "mode": "quick_start", "text": "How do you feel about improvising, say, presenting without preparing?", "options": [
+      { "key": "a", "text": "Love it. I'm better off the cuff.", "zone": "initiate" },
+      { "key": "b", "text": "Okay in a pinch, but I'd rather have notes.", "zone": "respond" },
+      { "key": "c", "text": "I avoid it. I prepare thoroughly.", "zone": "counteract" } ] },
+    { "id": "QS5", "mode": "quick_start", "text": "You're stuck on a problem. What's your instinct?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Stick with the proven approach and work it harder.", "zone": "counteract" },
+      { "key": "b", "text": "Throw out ten possible fixes and try the wildest one.", "zone": "initiate" },
+      { "key": "c", "text": "Try a couple of reasonable options.", "zone": "respond" } ] },
+    { "id": "QS6", "mode": "quick_start", "text": "How often do you start things that end up unfinished?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Rarely. I don't start what I can't see through.", "zone": "counteract" },
+      { "key": "b", "text": "Sometimes.", "zone": "respond" },
+      { "key": "c", "text": "Constantly. Starting is the fun part.", "zone": "initiate" } ] },
+
+    { "id": "IM1", "mode": "implementor", "text": "You need to explain a concept to someone. What do you reach for?", "options": [
+      { "key": "a", "text": "Words. I describe it.", "zone": "counteract" },
+      { "key": "b", "text": "A quick sketch or diagram.", "zone": "respond" },
+      { "key": "c", "text": "A physical thing. A model, a prototype, something they can hold.", "zone": "initiate" } ] },
+    { "id": "IM2", "mode": "implementor", "text": "Something breaks at home. What do you do?", "options": [
+      { "key": "a", "text": "Take it apart and fix it myself.", "zone": "initiate" },
+      { "key": "b", "text": "Call someone or replace it. I'd rather not touch it.", "zone": "counteract" },
+      { "key": "c", "text": "Try a basic fix, then call someone.", "zone": "respond" } ] },
+    { "id": "IM3", "mode": "implementor", "text": "You're designing something new. Where does it live first?", "options": [
+      { "key": "a", "text": "In sketches and mockups.", "zone": "respond" },
+      { "key": "b", "text": "In my head, or in a doc. I can picture it fully.", "zone": "counteract" },
+      { "key": "c", "text": "In my hands. I build a rough version right away.", "zone": "initiate" } ] },
+    { "id": "IM4", "mode": "implementor", "text": "How much does your physical setup matter to how you work?", "options": [
+      { "key": "a", "text": "A lot. I need the right tools, gear and space.", "zone": "initiate" },
+      { "key": "b", "text": "Somewhat. Comfortable is enough.", "zone": "respond" },
+      { "key": "c", "text": "Hardly at all. Give me a laptop anywhere.", "zone": "counteract" } ] },
+    { "id": "IM5", "mode": "implementor", "text": "How do you learn a new tool or device?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "Read or watch about it first, then use it.", "zone": "counteract" },
+      { "key": "b", "text": "Pick it up and mess with it until it works.", "zone": "initiate" },
+      { "key": "c", "text": "Try the basics, and look things up when stuck.", "zone": "respond" } ] },
+    { "id": "IM6", "mode": "implementor", "text": "What's your relationship with hands-on work, like building, repairing or crafting?", "skip_if_confident": true, "options": [
+      { "key": "a", "text": "I enjoy it now and then.", "zone": "respond" },
+      { "key": "b", "text": "It's where I feel most alive.", "zone": "initiate" },
+      { "key": "c", "text": "I'd rather think, talk or design than build.", "zone": "counteract" } ] }
+  ]
+}

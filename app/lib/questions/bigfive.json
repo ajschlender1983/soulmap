@@ -1,0 +1,58 @@
+{
+  "bank": "bigfive",
+  "version": "0.1",
+  "source": "Items from the public-domain International Personality Item Pool (IPIP, ipip.ori.org), lightly adapted to first-person spoken English. 6 per domain, 3 forward and 3 reversed.",
+  "scale": {
+    "type": "agreement_1_5",
+    "prompt_suffix": "Not at all, a little, somewhat, mostly, or completely?",
+    "labels": { "1": "not at all", "2": "a little", "3": "somewhat", "4": "mostly", "5": "completely" }
+  },
+  "domains": {
+    "openness": { "name": "Openness", "low": "practical, conventional, prefers the familiar", "high": "curious, imaginative, drawn to ideas and novelty" },
+    "conscientiousness": { "name": "Conscientiousness", "low": "spontaneous, flexible, loose with plans", "high": "organized, dependable, follows through" },
+    "extraversion": { "name": "Extraversion", "low": "reserved, recharges alone, lets others lead", "high": "outgoing, energetic, takes the floor" },
+    "agreeableness": { "name": "Agreeableness", "low": "blunt, competitive, skeptical of others", "high": "warm, cooperative, tuned to others' feelings" },
+    "emotional_stability": { "name": "Emotional Stability", "low": "reactive, worries, moods swing", "high": "calm, even, hard to rattle" }
+  },
+  "facets": {
+    "orderliness": { "domain": "conscientiousness", "name": "Orderliness", "why": "predicts how much structure a person builds and keeps around their work" },
+    "assertiveness": { "domain": "extraversion", "name": "Assertiveness", "why": "predicts who speaks first and takes charge in a room" }
+  },
+  "scoring_notes": "Each domain is the mean of its 6 items after reversing negative-polarity items (6 minus answer), mapped to 0-100 as (mean - 1) / 4 * 100, so 50 = neutral. Levels: below 35 low, 35-65 average, above 65 high. Facets are the same formula over the items tagged with that facet. Domain confidence = agreement between the forward and reversed halves (1 minus their gap over 4) times a coverage factor; overall confidence is the mean across domains. See scoring.ts.",
+  "items": [
+    { "id": "FO1", "domain": "openness", "text": "I have a vivid imagination.", "polarity": 1 },
+    { "id": "FO2", "domain": "openness", "text": "I spend time reflecting on things.", "polarity": 1 },
+    { "id": "FO3", "domain": "openness", "text": "I'm full of ideas.", "polarity": 1 },
+    { "id": "FO4", "domain": "openness", "text": "I'm not interested in abstract ideas.", "polarity": -1 },
+    { "id": "FO5", "domain": "openness", "text": "I don't have much of an imagination.", "polarity": -1 },
+    { "id": "FO6", "domain": "openness", "text": "I prefer to stick with things that I know.", "polarity": -1, "skip_if_confident": true },
+
+    { "id": "FC1", "domain": "conscientiousness", "facet": "orderliness", "text": "I like things to be in order.", "polarity": 1 },
+    { "id": "FC2", "domain": "conscientiousness", "text": "I get chores done right away.", "polarity": 1 },
+    { "id": "FC3", "domain": "conscientiousness", "facet": "orderliness", "text": "I follow a schedule.", "polarity": 1 },
+    { "id": "FC4", "domain": "conscientiousness", "facet": "orderliness", "text": "I leave my belongings lying around.", "polarity": -1 },
+    { "id": "FC5", "domain": "conscientiousness", "facet": "orderliness", "text": "I often forget to put things back in their proper place.", "polarity": -1 },
+    { "id": "FC6", "domain": "conscientiousness", "text": "I let my duties slide.", "polarity": -1, "skip_if_confident": true },
+
+    { "id": "FE1", "domain": "extraversion", "text": "I'm the life of the party.", "polarity": 1 },
+    { "id": "FE2", "domain": "extraversion", "facet": "assertiveness", "text": "I take charge.", "polarity": 1 },
+    { "id": "FE3", "domain": "extraversion", "text": "I'm the one who starts conversations.", "polarity": 1 },
+    { "id": "FE4", "domain": "extraversion", "text": "I don't like to draw attention to myself.", "polarity": -1 },
+    { "id": "FE5", "domain": "extraversion", "facet": "assertiveness", "text": "I wait for others to lead the way.", "polarity": -1 },
+    { "id": "FE6", "domain": "extraversion", "facet": "assertiveness", "text": "I keep in the background.", "polarity": -1, "skip_if_confident": true },
+
+    { "id": "FA1", "domain": "agreeableness", "text": "I sympathize with others' feelings.", "polarity": 1 },
+    { "id": "FA2", "domain": "agreeableness", "text": "I take time out for others.", "polarity": 1 },
+    { "id": "FA3", "domain": "agreeableness", "text": "I make people feel at ease.", "polarity": 1 },
+    { "id": "FA4", "domain": "agreeableness", "text": "I'm not really interested in other people's problems.", "polarity": -1 },
+    { "id": "FA5", "domain": "agreeableness", "text": "I feel little concern for others.", "polarity": -1 },
+    { "id": "FA6", "domain": "agreeableness", "text": "I sometimes insult people.", "polarity": -1, "skip_if_confident": true },
+
+    { "id": "FS1", "domain": "emotional_stability", "text": "I'm relaxed most of the time.", "polarity": 1 },
+    { "id": "FS2", "domain": "emotional_stability", "text": "I rarely feel down.", "polarity": 1 },
+    { "id": "FS3", "domain": "emotional_stability", "text": "I rarely get irritated.", "polarity": 1 },
+    { "id": "FS4", "domain": "emotional_stability", "text": "I get stressed out easily.", "polarity": -1 },
+    { "id": "FS5", "domain": "emotional_stability", "text": "I worry about things.", "polarity": -1 },
+    { "id": "FS6", "domain": "emotional_stability", "text": "I have frequent mood swings.", "polarity": -1, "skip_if_confident": true }
+  ]
+}

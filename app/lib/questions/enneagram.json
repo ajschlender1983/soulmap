@@ -1,0 +1,70 @@
+{
+  "bank": "enneagram",
+  "version": "0.1",
+  "scale": {
+    "type": "agreement_1_5",
+    "prompt_suffix": "Would you say: not at all, a little, somewhat, mostly, or completely?",
+    "labels": { "1": "not at all", "2": "a little", "3": "somewhat", "4": "mostly", "5": "completely" }
+  },
+  "scoring_notes": "Each answer is centered (answer minus 3) and multiplied by polarity, then added to every type in `loads` using that load's weight. Disambiguation items load positively on one type and negatively on its common look-alike. Instinct items load on sp/so/sx instead of types. See scoring.ts.",
+  "items": [
+    { "id": "E1a", "group": "core", "text": "I notice what's wrong or out of place almost before I notice anything else.", "loads": [{ "type": 1, "weight": 1 }], "polarity": 1 },
+    { "id": "E1b", "group": "core", "text": "I carry a strong inner voice that tells me how things should be done.", "loads": [{ "type": 1, "weight": 1 }], "polarity": 1 },
+    { "id": "E1c", "group": "core", "text": "When I let a standard slide, it bothers me for a long time afterward.", "loads": [{ "type": 1, "weight": 1 }], "polarity": 1 },
+    { "id": "E1d", "group": "core", "text": "I'm comfortable letting things be a bit sloppy if nobody cares.", "loads": [{ "type": 1, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E2a", "group": "core", "text": "I can sense what someone needs before they say it, and I move to give it.", "loads": [{ "type": 2, "weight": 1 }], "polarity": 1 },
+    { "id": "E2b", "group": "core", "text": "It's much easier for me to offer help than to ask for it.", "loads": [{ "type": 2, "weight": 1 }], "polarity": 1 },
+    { "id": "E2c", "group": "core", "text": "Being needed by people is a big part of how I feel good about myself.", "loads": [{ "type": 2, "weight": 1 }], "polarity": 1 },
+    { "id": "E2d", "group": "core", "text": "I'm fine saying no to people even when they're disappointed in me.", "loads": [{ "type": 2, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E3a", "group": "core", "text": "I adjust how I come across depending on who I'm with, so that I succeed.", "loads": [{ "type": 3, "weight": 1 }], "polarity": 1 },
+    { "id": "E3b", "group": "core", "text": "Slowing down and not being productive makes me restless or uneasy.", "loads": [{ "type": 3, "weight": 1 }], "polarity": 1 },
+    { "id": "E3c", "group": "core", "text": "I care a lot about being seen as successful at what I do.", "loads": [{ "type": 3, "weight": 1 }], "polarity": 1 },
+    { "id": "E3d", "group": "core", "text": "I'm fine doing work that nobody will ever see or give me credit for.", "loads": [{ "type": 3, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E4a", "group": "core", "text": "I've always felt different from the people around me, like something others have is missing in me.", "loads": [{ "type": 4, "weight": 1 }], "polarity": 1 },
+    { "id": "E4b", "group": "core", "text": "My moods run deep, and I'd rather feel them fully than smooth them over.", "loads": [{ "type": 4, "weight": 1 }], "polarity": 1 },
+    { "id": "E4c", "group": "core", "text": "Ordinary or generic is almost painful to me. I need things to feel authentic.", "loads": [{ "type": 4, "weight": 1 }], "polarity": 1 },
+    { "id": "E4d", "group": "core", "text": "I don't spend much time wondering who I really am.", "loads": [{ "type": 4, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E5a", "group": "core", "text": "I need a lot of time alone to recharge and think things through.", "loads": [{ "type": 5, "weight": 1 }], "polarity": 1 },
+    { "id": "E5b", "group": "core", "text": "I'd rather understand something completely before I act on it or speak about it.", "loads": [{ "type": 5, "weight": 1 }], "polarity": 1 },
+    { "id": "E5c", "group": "core", "text": "I keep my needs small so I don't have to depend on anyone.", "loads": [{ "type": 5, "weight": 1 }], "polarity": 1 },
+    { "id": "E5d", "group": "core", "text": "I'm quick to share my feelings and reactions in the moment.", "loads": [{ "type": 5, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E6a", "group": "core", "text": "My mind automatically runs through what could go wrong.", "loads": [{ "type": 6, "weight": 1 }], "polarity": 1 },
+    { "id": "E6b", "group": "core", "text": "I test people and ideas before I trust them, and once I do, I'm very loyal.", "loads": [{ "type": 6, "weight": 1 }], "polarity": 1 },
+    { "id": "E6c", "group": "core", "text": "I second-guess my decisions more than most people seem to.", "loads": [{ "type": 6, "weight": 1 }], "polarity": 1 },
+    { "id": "E6d", "group": "core", "text": "I rarely feel the need to check with anyone before I decide.", "loads": [{ "type": 6, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E7a", "group": "core", "text": "I keep my options open, because committing to one thing feels like a trap.", "loads": [{ "type": 7, "weight": 1 }], "polarity": 1 },
+    { "id": "E7b", "group": "core", "text": "When something gets painful or boring, I quickly find something more exciting.", "loads": [{ "type": 7, "weight": 1 }], "polarity": 1 },
+    { "id": "E7c", "group": "core", "text": "I have far more plans and ideas than I could ever finish.", "loads": [{ "type": 7, "weight": 1 }], "polarity": 1 },
+    { "id": "E7d", "group": "core", "text": "I can sit with an uncomfortable feeling without distracting myself from it.", "loads": [{ "type": 7, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E8a", "group": "core", "text": "I take charge in a group almost without deciding to.", "loads": [{ "type": 8, "weight": 1 }], "polarity": 1 },
+    { "id": "E8b", "group": "core", "text": "I'd rather be respected than liked.", "loads": [{ "type": 8, "weight": 1 }], "polarity": 1 },
+    { "id": "E8c", "group": "core", "text": "I have a hard time showing vulnerability, so I show strength instead.", "loads": [{ "type": 8, "weight": 1 }], "polarity": 1 },
+    { "id": "E8d", "group": "core", "text": "I'm uncomfortable with confrontation and avoid it when I can.", "loads": [{ "type": 8, "weight": 1 }], "polarity": -1 },
+
+    { "id": "E9a", "group": "core", "text": "I can see everyone's side so clearly that I lose track of my own opinion.", "loads": [{ "type": 9, "weight": 1 }], "polarity": 1 },
+    { "id": "E9b", "group": "core", "text": "Keeping things calm and comfortable matters more to me than getting my way.", "loads": [{ "type": 9, "weight": 1 }], "polarity": 1 },
+    { "id": "E9c", "group": "core", "text": "I tend to go along with things, and then feel quietly resentful later.", "loads": [{ "type": 9, "weight": 1 }], "polarity": 1 },
+    { "id": "E9d", "group": "core", "text": "I know exactly what I want, and I say it without hesitating.", "loads": [{ "type": 9, "weight": 1 }], "polarity": -1 },
+
+    { "id": "D37", "group": "disambiguation", "pair": [3, 7], "text": "Even when I'm having fun, part of me is tracking whether it moves me toward a goal.", "loads": [{ "type": 3, "weight": 1 }, { "type": 7, "weight": -1 }], "polarity": 1 },
+    { "id": "D16", "group": "disambiguation", "pair": [1, 6], "text": "My carefulness comes from my own standards, more than from worry about what might happen.", "loads": [{ "type": 1, "weight": 1 }, { "type": 6, "weight": -1 }], "polarity": 1 },
+    { "id": "D29", "group": "disambiguation", "pair": [2, 9], "text": "I'd rather actively step in and help someone than quietly keep the peace.", "loads": [{ "type": 2, "weight": 1 }, { "type": 9, "weight": -1 }], "polarity": 1 },
+    { "id": "D59", "group": "disambiguation", "pair": [5, 9], "text": "When I withdraw, it's to think and save energy, not to avoid conflict.", "loads": [{ "type": 5, "weight": 1 }, { "type": 9, "weight": -1 }], "polarity": 1 },
+    { "id": "D46", "group": "disambiguation", "pair": [4, 6], "text": "Under stress, what I feel is more like longing and envy than fear and suspicion.", "loads": [{ "type": 4, "weight": 1 }, { "type": 6, "weight": -1 }], "polarity": 1 },
+    { "id": "D83", "group": "disambiguation", "pair": [8, 3], "text": "I'd rather be the one in control than the one who looks the best.", "loads": [{ "type": 8, "weight": 1 }, { "type": 3, "weight": -1 }], "polarity": 1 },
+
+    { "id": "I_sp1", "group": "instinct", "text": "I think about money, health, comfort and safety more than most people I know.", "loads": [{ "instinct": "sp", "weight": 1 }], "polarity": 1 },
+    { "id": "I_sp2", "group": "instinct", "text": "A good day is one where my body, my space and my resources all feel taken care of.", "loads": [{ "instinct": "sp", "weight": 1 }], "polarity": 1 },
+    { "id": "I_so1", "group": "instinct", "text": "I naturally track who's connected to whom, and where I fit in a group.", "loads": [{ "instinct": "so", "weight": 1 }], "polarity": 1 },
+    { "id": "I_so2", "group": "instinct", "text": "Contributing to something bigger than me, like a team or a community, is what makes work meaningful.", "loads": [{ "instinct": "so", "weight": 1 }], "polarity": 1 },
+    { "id": "I_sx1", "group": "instinct", "text": "I'm drawn to intensity. One deep connection beats a room full of acquaintances.", "loads": [{ "instinct": "sx", "weight": 1 }], "polarity": 1 },
+    { "id": "I_sx2", "group": "instinct", "text": "I lose interest fast when there's no spark or chemistry in a situation.", "loads": [{ "instinct": "sx", "weight": 1 }], "polarity": 1 }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "purpose": "Keyword table the Retell agent prompt can embed to map a spoken free-text answer onto the 1-5 agreement scale, onto one of three options, onto the 1-5 energy scale (working genius), onto the 1-6 similarity scale (values), or onto a clock time (chronotype). Mirrors parseScaleAnswer / parseOptionAnswer / parseEnergyAnswer / parseSimilarityAnswer / parseClockAnswer in scoring.ts.",
+  "scale_1_5": {
+    "1": [
+      "not at all",
+      "no",
+      "never",
+      "nope",
+      "nah",
+      "zero",
+      "none",
+      "the opposite",
+      "definitely not",
+      "no way",
+      "absolutely not",
+      "not even a little",
+      "not me"
+    ],
+    "2": [
+      "a little",
+      "slightly",
+      "not really",
+      "not much",
+      "rarely",
+      "barely",
+      "not so much",
+      "occasionally",
+      "hardly",
+      "a tiny bit",
+      "not very",
+      "once in a while"
+    ],
+    "3": [
+      "somewhat",
+      "sometimes",
+      "kind of",
+      "kinda",
+      "sort of",
+      "sorta",
+      "a bit",
+      "depends",
+      "half",
+      "in between",
+      "fifty fifty",
+      "medium",
+      "neutral",
+      "maybe",
+      "middle",
+      "not sure",
+      "mixed"
+    ],
+    "4": [
+      "mostly",
+      "pretty much",
+      "yeah",
+      "yes",
+      "yep",
+      "usually",
+      "often",
+      "largely",
+      "for the most part",
+      "generally",
+      "quite",
+      "i'd say so",
+      "true",
+      "most of the time",
+      "pretty true",
+      "fairly"
+    ],
+    "5": [
+      "completely",
+      "absolutely",
+      "totally",
+      "definitely",
+      "very much",
+      "always",
+      "hundred percent",
+      "100 percent",
+      "exactly",
+      "so true",
+      "all the time",
+      "big time",
+      "yes definitely",
+      "for sure",
+      "without a doubt",
+      "extremely"
+    ]
+  },
+  "numbers": {
+    "words": {
+      "one": 1,
+      "two": 2,
+      "three": 3,
+      "four": 4,
+      "five": 5
+    },
+    "out_of_10": "x out of 10 -> ceil(x / 2)",
+    "out_of_5": "x out of 5 -> x"
+  },
+  "rules": [
+    "A spoken number (1-5, or 'x out of 5', 'x out of 10') beats any keyword.",
+    "Otherwise take the longest matching phrase; if several match with equal length, take the one that appears last (people correct themselves: 'yeah... actually not really' -> 2).",
+    "Negation: 'not' directly before a 5-word maps to 2 ('not completely' -> 2); 'not' before a 4-word maps to 2. 'not at all' and 'not really' are already whole phrases and win as phrases.",
+    "If nothing matches, do not guess. Re-ask with the scale: 'Would you say not at all, a little, somewhat, mostly, or completely?'",
+    "A long story answer: pick the phrase that best summarizes the stance, confirm it in five words or fewer ('So, mostly?'), then move on. Never read the item again in full."
+  ],
+  "three_option": {
+    "by_position": {
+      "a": [
+        "a",
+        "the first one",
+        "first",
+        "number one",
+        "option a"
+      ],
+      "b": [
+        "b",
+        "the second one",
+        "second",
+        "middle one",
+        "number two",
+        "option b"
+      ],
+      "c": [
+        "c",
+        "the third one",
+        "third",
+        "the last one",
+        "last",
+        "number three",
+        "option c"
+      ]
+    },
+    "by_content": "If no letter or position is given, match the answer to the option whose words overlap most (e.g. 'I'd just wing it' -> the option containing 'wing it'). If overlap is weak or tied, confirm: 'So closer to A, B, or C?'",
+    "neither": "If the person says 'none of those' or 'between A and B', record the respond-zone option when one of the two is respond; otherwise record the one they lean toward and flag `uncertain: true`."
+  },
+  "energy_1_5": {
+    "1": [
+      "drains me",
+      "draining",
+      "drains",
+      "exhausting",
+      "hate it",
+      "hate that",
+      "dread",
+      "sucks the life",
+      "kills me",
+      "the worst",
+      "not at all",
+      "no"
+    ],
+    "2": [
+      "a bit draining",
+      "slightly draining",
+      "tires me",
+      "tiring",
+      "not my favorite",
+      "meh",
+      "a little draining",
+      "bit of a slog",
+      "not really"
+    ],
+    "3": [
+      "neutral",
+      "neither",
+      "fine",
+      "okay",
+      "ok",
+      "indifferent",
+      "doesn't matter",
+      "no strong feeling",
+      "depends",
+      "in between",
+      "take it or leave it"
+    ],
+    "4": [
+      "energizing",
+      "energizes me",
+      "gives me energy",
+      "like it",
+      "like that",
+      "enjoy",
+      "fun",
+      "good one",
+      "i'm into that",
+      "nice"
+    ],
+    "5": [
+      "really energizes me",
+      "love it",
+      "love that",
+      "lights me up",
+      "come alive",
+      "i thrive",
+      "best part",
+      "favorite",
+      "so energizing",
+      "fully energizes"
+    ],
+    "used_by": "working_genius energy items. Numbers 1-5 win, then these phrases (longest match, last occurrence), then fall back to scale_1_5 ('yeah' -> 4, 'not at all' -> 1)."
+  },
+  "similarity_1_6": {
+    "1": [
+      "not like me at all",
+      "nothing like me",
+      "the opposite of me",
+      "the opposite",
+      "not at all",
+      "no way",
+      "definitely not",
+      "absolutely not"
+    ],
+    "2": [
+      "not like me",
+      "not really me",
+      "not really",
+      "no",
+      "nope",
+      "not so much",
+      "not me"
+    ],
+    "3": [
+      "a little like me",
+      "a little",
+      "slightly",
+      "a bit",
+      "a tiny bit",
+      "not much"
+    ],
+    "4": [
+      "somewhat like me",
+      "somewhat",
+      "kind of",
+      "kinda",
+      "sort of",
+      "sorta",
+      "partly",
+      "fairly",
+      "in some ways"
+    ],
+    "5": [
+      "like me",
+      "that's me",
+      "yes",
+      "yeah",
+      "yep",
+      "mostly",
+      "pretty much",
+      "quite like me",
+      "definitely"
+    ],
+    "6": [
+      "very much like me",
+      "exactly me",
+      "exactly like me",
+      "completely",
+      "totally",
+      "absolutely",
+      "hundred percent",
+      "that's so me",
+      "very much"
+    ],
+    "used_by": "values items. Numbers 1-6 win ('x out of 10' -> ceil(x * 6 / 10)), then these phrases (longest match, last occurrence). 'like me' alone is 5; the longer phrases around it ('not like me', 'a little like me') win because they are longer.",
+    "rule": "If nothing matches, re-ask with the six labels. Never collapse this to the 1-5 table."
+  },
+  "clock": {
+    "used_by": "chronotype K_wake and K_bed. Record the time as said ('6:30', 'half past seven', '11 pm', 'midnight'); the scorer parses it.",
+    "rules": [
+      "Pass the spoken time through verbatim; do not convert.",
+      "A bare number with no a.m./p.m. is read as morning for the wake item, and for the bed item as evening when 7-12 and after midnight when 1-6.",
+      "If the person gives a range ('six or seven'), ask for the one that's most typical and record that.",
+      "If they say 'it depends' or give a day-of-week answer, ask for the free day with no alarm."
+    ]
+  }
+}

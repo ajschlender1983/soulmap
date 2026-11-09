@@ -1,0 +1,36 @@
+{
+  "name": "iam-ai",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "sync-questions": "cp ../analysis/questions/{scoring.ts,enneagram.json,attachment.json,kolbe_proxy.json,bigfive.json,working_genius.json,chronotype.json,values.json,interview_plan.json,voice_answer_parser.json} lib/questions/",
+    "setup-retell": "npm run sync-questions && tsx scripts/setup-retell.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@supabase/supabase-js": "^2.108.1",
+    "@vercel/blob": "^2.8.2",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "resend": "^6.12.4",
+    "retell-client-js-sdk": "^3.0.3",
+    "retell-sdk": "^6.2.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

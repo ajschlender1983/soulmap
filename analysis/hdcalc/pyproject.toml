@@ -1,0 +1,16 @@
+[project]
+name = "hdcalc"
+version = "0.1.0"
+description = "Human Design + Gene Keys chart calculator (offline, Swiss Ephemeris / Moshier)"
+requires-python = ">=3.11"
+dependencies = ["pyswisseph>=2.10"]
+
+[project.scripts]
+hdcalc = "hdcalc.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["hdcalc"]

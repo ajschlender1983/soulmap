@@ -1,0 +1,52 @@
+{
+  "bank": "values",
+  "version": "0.1",
+  "source": "Original portrait-style items modeling Schwartz's ten basic values (Schwartz, 1992; the portrait format follows the public description of the PVQ). No PVQ or ESS human-values items were used.",
+  "scale": {
+    "type": "similarity_1_6",
+    "prompt_suffix": "How much like you is that person? Not like me at all, not like me, a little like me, somewhat like me, like me, or very much like me?",
+    "labels": { "1": "not like me at all", "2": "not like me", "3": "a little like me", "4": "somewhat like me", "5": "like me", "6": "very much like me" }
+  },
+  "values": {
+    "self_direction": { "name": "Self-direction", "higher_order": "openness_to_change", "gist": "independent thought and action" },
+    "stimulation": { "name": "Stimulation", "higher_order": "openness_to_change", "gist": "excitement, novelty, challenge" },
+    "hedonism": { "name": "Hedonism", "higher_order": "openness_to_change", "gist": "pleasure and enjoyment" },
+    "achievement": { "name": "Achievement", "higher_order": "self_enhancement", "gist": "personal success through demonstrated competence" },
+    "power": { "name": "Power", "higher_order": "self_enhancement", "gist": "status, control, resources" },
+    "security": { "name": "Security", "higher_order": "conservation", "gist": "safety and stability" },
+    "conformity": { "name": "Conformity", "higher_order": "conservation", "gist": "restraint of actions that would upset others or break norms" },
+    "tradition": { "name": "Tradition", "higher_order": "conservation", "gist": "respect for customs and ideas one's culture provides" },
+    "benevolence": { "name": "Benevolence", "higher_order": "self_transcendence", "gist": "the welfare of people one is close to" },
+    "universalism": { "name": "Universalism", "higher_order": "self_transcendence", "gist": "understanding and protection of all people and nature" }
+  },
+  "higher_order": {
+    "openness_to_change": ["self_direction", "stimulation", "hedonism"],
+    "self_enhancement": ["achievement", "power"],
+    "conservation": ["security", "conformity", "tradition"],
+    "self_transcendence": ["benevolence", "universalism"]
+  },
+  "scoring_notes": "Raw value score = mean of its items on 1-6. MRAT = mean of all answered items. Centered (ipsatized) score = raw minus MRAT, so positive means 'more important than this person's average value'. Top-3 and bottom-3 are by centered score. Higher-order dimensions = mean of their values' centered scores; hedonism is placed with openness to change (its usual home in Schwartz's analyses) and the raw output lets the report move it to self-enhancement if wanted. Confidence = spread of the centered scores (standard deviation 0.8 = full) times coverage; a flat profile (everything 'like me') scores low confidence. See scoring.ts.",
+  "items": [
+    { "id": "SD1", "value": "self_direction", "text": "Someone who needs to come up with their own ideas and do things their own way." },
+    { "id": "ST1", "value": "stimulation", "text": "Someone who loves surprises and is always looking for new things to do." },
+    { "id": "HE1", "value": "hedonism", "text": "Someone who wants to enjoy life and have a good time. Pleasure matters a lot to them." },
+    { "id": "AC1", "value": "achievement", "text": "Someone who wants to show how capable they are and have people admire what they do." },
+    { "id": "PO1", "value": "power", "text": "Someone who wants to be wealthy, with expensive things and money to spare." },
+    { "id": "SE1", "value": "security", "text": "Someone who needs to live in safe surroundings and avoids anything that might put them at risk." },
+    { "id": "CO1", "value": "conformity", "text": "Someone who believes people should follow the rules even when no one is watching." },
+    { "id": "TR1", "value": "tradition", "text": "Someone who thinks it's important to be humble and modest, and not to draw attention to themselves." },
+    { "id": "BE1", "value": "benevolence", "text": "Someone who goes out of their way to help the people close to them and look after their wellbeing." },
+    { "id": "UN1", "value": "universalism", "text": "Someone who thinks everyone in the world should be treated equally and have the same chances." },
+    { "id": "SD2", "value": "self_direction", "text": "Someone who wants to decide for themselves what they do, and values being free and independent." },
+    { "id": "ST2", "value": "stimulation", "text": "Someone who seeks out adventure and risk, and wants an exciting life." },
+    { "id": "HE2", "value": "hedonism", "text": "Someone who looks for every chance to indulge and treat themselves." },
+    { "id": "AC2", "value": "achievement", "text": "Someone who wants to be very successful and get ahead." },
+    { "id": "PO2", "value": "power", "text": "Someone who wants to be in charge and have others do what they say." },
+    { "id": "SE2", "value": "security", "text": "Someone who thinks it's very important that the country is safe and the rules are enforced." },
+    { "id": "CO2", "value": "conformity", "text": "Someone who always behaves properly and avoids doing anything others would say is wrong." },
+    { "id": "TR2", "value": "tradition", "text": "Someone who keeps the customs their family or faith handed down to them." },
+    { "id": "BE2", "value": "benevolence", "text": "Someone who is loyal to their friends and wants to devote themselves to the people they care about." },
+    { "id": "UN2", "value": "universalism", "text": "Someone who listens to people who are different from them and tries to understand them, even when they disagree." },
+    { "id": "UN3", "value": "universalism", "text": "Someone who cares deeply about nature and looking after the environment." }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "bank": "chronotype",
+  "version": "0.1",
+  "source": "Original items modeling the Morningness-Eveningness construct (Horne & Ostberg, 1976). No MEQ or rMEQ items were used. Category names follow the MEQ convention.",
+  "scale": {
+    "type": "agreement_1_5",
+    "prompt_suffix": "Not at all, a little, somewhat, mostly, or completely?",
+    "labels": { "1": "not at all", "2": "a little", "3": "somewhat", "4": "mostly", "5": "completely" }
+  },
+  "clock_scale": {
+    "type": "clock",
+    "prompt_suffix": "Just give me a time, like 'six thirty' or 'eleven p.m.'",
+    "parse": "parseClockAnswer in scoring.ts: '7', '7:30', 'half past seven', '11 pm', '23:00', 'midnight'. A bare 1-6 for bedtime means after midnight; a bare 7-12 for bedtime means evening."
+  },
+  "labels": {
+    "definite_morning": { "max": 100, "min": 77, "text": "Definite morning type" },
+    "moderate_morning": { "max": 76, "min": 61, "text": "Moderate morning type" },
+    "intermediate": { "max": 60, "min": 37, "text": "Intermediate" },
+    "moderate_evening": { "max": 36, "min": 21, "text": "Moderate evening type" },
+    "definite_evening": { "max": 20, "min": 0, "text": "Definite evening type" }
+  },
+  "scoring_notes": "Morningness 0-100. Agreement items: reverse negative polarity (6 minus answer), mean, map (mean - 1) / 4 * 100. Clock items: free-day wake time maps 05:00 -> 100 to 10:00 -> 0, free-day bedtime maps 21:00 -> 100 to 02:00 -> 0. Final score = 0.7 x agreement + 0.3 x clock when both exist. Cuts at 20 / 36 / 60 / 76 are the MEQ cuts (30 / 41 / 58 / 69 on 16-86) rescaled. Windows: natural wake = the clock answer, else 10:00 minus score / 100 x 5 h; natural bed = the clock answer, else wake minus 8 h; peak = wake + 2 h + (1 - score / 100) x 5 h, lasting 3 h. Confidence = distance from the nearest cut (8 points = full) times coverage, halved when the clock answers and the agreement items disagree by more than 35 points. See scoring.ts.",
+  "items": [
+    { "id": "K_wake", "kind": "clock", "clock": "wake", "text": "If you were completely free to plan your day, no work, no alarm, no one to look after, what time would you naturally get up?" },
+    { "id": "K_bed", "kind": "clock", "clock": "bed", "text": "And on that same free day, what time would you go to sleep?" },
+    { "id": "K1", "kind": "agreement", "text": "I feel sharpest in the first few hours after I wake up.", "polarity": 1 },
+    { "id": "K2", "kind": "agreement", "text": "I do my best thinking late in the evening, after most people have wound down.", "polarity": -1 },
+    { "id": "K3", "kind": "agreement", "text": "Getting up early is easy for me, even without an alarm.", "polarity": 1 },
+    { "id": "K4", "kind": "agreement", "text": "When I have to be up early, I feel groggy for a long time.", "polarity": -1 },
+    { "id": "K5", "kind": "agreement", "text": "By ten at night I'm usually done. My brain switches off.", "polarity": 1 },
+    { "id": "K6", "kind": "agreement", "text": "I could happily stay up past midnight most nights and not feel it the next day.", "polarity": -1 },
+    { "id": "K7", "kind": "agreement", "text": "If I had a demanding two-hour task, I'd choose to do it in the morning.", "polarity": 1 },
+    { "id": "K8", "kind": "agreement", "text": "A seven a.m. workout sounds awful. I'd rather train in the evening.", "polarity": -1 },
+    { "id": "K9", "kind": "agreement", "text": "I'm hungry for breakfast within the first hour of waking.", "polarity": 1, "skip_if_confident": true },
+    { "id": "K10", "kind": "agreement", "text": "On weekends I sleep in a lot later than on workdays.", "polarity": -1, "skip_if_confident": true }
+  ]
+}
