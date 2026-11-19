@@ -4,6 +4,7 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { aiConfig, checkKey, localStatus, saveAiSettings } from "@/lib/ai";
 import { dataDir } from "@/lib/state";
+import { DEFAULT_PROFILE, profileIdFrom } from "@/lib/profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -27,15 +28,17 @@ async function install(): Promise<{ state: "idle" | "running" | "done" | "failed
 }
 
 /** GET: which engine is chosen, whether a key is set (never the key), and the local model's state. */
-export async function GET() {
+export async function GET(req: Request) {
   const cfg = await aiConfig();
   const local = HOSTED ? { running: false, installed: false } : await localStatus(cfg.localModel);
-  return NextResponse.json({ hosted: HOSTED, engine: cfg.engine, chosen: cfg.chosen, has_key: !!cfg.key, local_model: cfg.localModel, local, install: HOSTED ? { state: "idle" } : await install() }, { headers: { "cache-control": "no-store" } });
+  return NextResponse.json({ hosted: HOSTED, managed: profileIdFrom(req) !== DEFAULT_PROFILE, engine: cfg.engine, chosen: cfg.chosen, has_key: !!cfg.key, local_model: cfg.localModel, local, install: HOSTED ? { state: "idle" } : await install() }, { headers: { "cache-control": "no-store" } });
 }
 
 /** POST {engine: "claude", key?} checks and saves the key; POST {engine: "local"} starts the local model install. */
 export async function POST(req: Request) {
   if (HOSTED) return NextResponse.json({ error: "The hosted version always uses Claude." }, { status: 400 });
+  // The engine and key are this install's, so only its owner changes them.
+  if (profileIdFrom(req) !== DEFAULT_PROFILE) return NextResponse.json({ error: "Only the owner of this install can change this." }, { status: 403 });
   const b = (await req.json().catch(() => ({}))) as { engine?: unknown; key?: unknown };
   if (b.engine === "claude") {
     const key = typeof b.key === "string" ? b.key.trim() : "";

@@ -25,7 +25,7 @@ const LAST = STEPS.length - 1;
 const STEP_BY_NAME: Record<string, number> = { you: 0, birth: 1, lenses: 2, ai: 3, thinking: 3, consent: 4 };
 const HOSTED = process.env.NEXT_PUBLIC_HOSTED === "1";
 type Engine = "claude" | "local";
-type AiStatus = { engine: Engine | null; chosen: boolean; has_key: boolean; local: { installed: boolean }; install: { state: "idle" | "running" | "done" | "failed"; step?: string; percent?: number } };
+type AiStatus = { engine: Engine | null; chosen: boolean; managed?: boolean; has_key: boolean; local: { installed: boolean }; install: { state: "idle" | "running" | "done" | "failed"; step?: string; percent?: number } };
 /** `?step=lenses` (the home screen's Settings link) opens that step straight away, with Back going home. */
 function initialStep(): number {
   if (typeof window === "undefined") return 0;
@@ -95,6 +95,8 @@ export default function Onboarding() {
     return () => { stop = true; window.clearInterval(t); };
   }, [engine]);
 
+  // A teammate on someone else's install: the owner already chose the engine, so the Thinking step is skipped.
+  const managed = !!ai?.managed;
   /** Saves the engine choice before moving on: checks a Claude key, or starts the local model download. */
   const saveEngine = async (): Promise<boolean> => {
     if (HOSTED) return true;
@@ -140,7 +142,7 @@ export default function Onboarding() {
     f.name.trim().length > 0,
     f.date.length > 0 && f.place.trim().length > 0 && (!f.timeKnown || f.time.length > 0),
     true,
-    HOSTED || engine === "local" || (engine === "claude" && (key.trim().length > 20 || !!ai?.has_key)),
+    HOSTED || managed || engine === "local" || (engine === "claude" && (key.trim().length > 20 || !!ai?.has_key)),
     f.consent,
   ];
 
@@ -183,14 +185,14 @@ export default function Onboarding() {
   };
 
   const next = async () => {
-    if (step === 3 && !(await saveEngine())) return;
-    if (step < LAST) setStep(step + 1); else finish();
+    if (step === 3 && !managed && !(await saveEngine())) return;
+    if (step < LAST) setStep(step === 2 && managed ? 4 : step + 1); else finish();
   };
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-lg flex-col">
       <header className="gutter flex items-center justify-between pt-[max(8px,env(safe-area-inset-top))]">
-        <button type="button" className="icon-btn" onClick={() => (step && step !== entryStep ? setStep(step - 1) : window.location.assign(h("/")))} aria-label={step && step !== entryStep ? "Back" : "Back to home"} disabled={busy && step === LAST}><ArrowLeft /></button>
+        <button type="button" className="icon-btn" onClick={() => (step && step !== entryStep ? setStep(step === 4 && managed ? 2 : step - 1) : window.location.assign(h("/")))} aria-label={step && step !== entryStep ? "Back" : "Back to home"} disabled={busy && step === LAST}><ArrowLeft /></button>
         <ol className="flex items-center gap-2" aria-label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step]}`}>
           {STEPS.map((s, i) => <li key={s} className={`h-2 rounded-full transition-all ${i === step ? "w-6 bg-[var(--color-accent)]" : i < step ? "w-2 bg-[var(--color-accent)] opacity-60" : "w-2 bg-[var(--color-line)]"}`} aria-current={i === step ? "step" : undefined} />)}
         </ol>
@@ -338,8 +340,8 @@ export default function Onboarding() {
             <h1 className="display">Before we start.</h1>
             <ul className="flex flex-col gap-3">
               {[
-                HOSTED ? "Your answers, chart and report are stored for this browser only." : "Your answers, chart and report are stored on this Mac, in your own profile.",
-                HOSTED || engine === "claude" ? "Claude by Anthropic reads your answers and your own meeting lines to score them and write your report. Nothing else is sent." : "Nothing leaves this Mac: the local model does all the thinking.",
+                HOSTED ? "Your answers, chart and report are stored for this browser only." : managed ? "Your answers, chart and report are stored on the team's Recall server, in your own profile." : "Your answers, chart and report are stored on this Mac, in your own profile.",
+                HOSTED || managed || engine === "claude" ? "Claude by Anthropic reads your answers and your own meeting lines to score them and write your report. Nothing else is sent." : "Nothing leaves this Mac: the local model does all the thinking.",
                 "Anything you upload is summarised, then the raw file is deleted.",
                 "Reports never contain other people's words, only patterns.",
                 "If you share with a team, they see one card: how to work with you. Never the full report.",
