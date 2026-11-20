@@ -154,12 +154,13 @@ async function runLocal(prompt: string, model: string): Promise<string> {
   const human = await one(`WRITE ONLY DOCUMENT 1 NOW (the person's own report), in markdown, with exactly these sections:
 # The Soul Map: <name>
 ## 1. In one breath (three sentences)
-## 2. How you are built (chart type, authority and profile in plain words)
-## 3. What drives you (top values, Enneagram, attachment)
-## 4. How you work best (Big Five, chronotype, strengths)
-## 5. Where you get stuck (two or three patterns, each with one thing to try)
-## 6. How to work with you (five bullets for teammates)
-${rules} Do not write Document 2.`, 5000);
+## 2. Your design (Human Design: type and strategy, decision style, profile, open centers and what each one makes you absorb, built-in talents from the channels; each with a "You'll likely recognize this if" line)
+## 3. Your gifts (Gene Keys: for Life's Work, Evolution, Radiance and Purpose, the shadow, the gift and how each shows up at work)
+## 4. What drives you (top values, Enneagram, attachment)
+## 5. How you work best (Big Five, chronotype, strengths)
+## 6. Where you get stuck (two or three patterns, each with one thing to try)
+## 7. How to work with you (five bullets for teammates)
+${rules} Treat Human Design and Gene Keys as maps from birth data to check against experience; never use the words cosmic, divine, universe, aura, vibration or destiny. Do not write Document 2.`, 7000);
   const agent = await one(`WRITE ONLY DOCUMENT 2 NOW: instructions an AI agent follows when working with this person. Address the agent directly ("Lead with...", "Ask before..."). Markdown, exactly these sections, three to six bullets each:
 # Working with <name>: agent instructions
 ## Profile summary
