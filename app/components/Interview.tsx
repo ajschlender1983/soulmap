@@ -274,6 +274,7 @@ export function Interview() {
             {done ? <a className="btn btn-ghost" href={h("/soul-file")}>Soul file</a> : <span className="btn btn-ghost opacity-50" aria-disabled title="Unlocks when every lens is answered">Report</span>}
             <a className="btn btn-ghost" href={h("/onboarding?step=lenses")}>Settings</a>
             <a className="btn btn-ghost" href={h("/team")}>Team</a>
+            <a className="btn btn-ghost" href={h("/energy")}>Energy Audit</a>
           </nav>
         </section>
         <Sheet open={sheet === "transcript"} onClose={() => setSheet(null)} title="Transcript" tall><Thread turns={shownTurns} name={name} /></Sheet>

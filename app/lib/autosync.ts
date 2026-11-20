@@ -2,7 +2,8 @@
  * Keeps each person's results current without anyone tapping Sync:
  *   - once a day, every enabled connector syncs (new Otter/Granola meetings, new Claude Code sessions);
  *   - when the evidence has changed since the last report, the report and soul file are rewritten,
- *     at most once a week (each Claude-written report costs about 30 cents).
+ *     at most once a week (each Claude-written report costs about 30 cents);
+ *   - once a week, the Energy Audit is written (lib/energy.ts, under a cent on Haiku).
  * The loop checks hourly; what ran when is kept in data/autosync.json.
  */
 import { promises as fs } from "node:fs";
@@ -11,6 +12,7 @@ import { aiConfig } from "./ai";
 import { syncConnectors } from "./connectors";
 import { hasActiveJob } from "./evidence";
 import { generateReport, reportDir } from "./report";
+import { auditDue, writeAudit } from "./energy";
 import { dataDir, readState } from "./state";
 
 const HOUR = 3600_000;
@@ -37,6 +39,13 @@ async function tick() {
     const s = await readState(id).catch(() => null);
     if (!s?.profile?.consent_at) continue;
     if (await hasActiveJob(id)) continue;
+    // The weekly Energy Audit: written once a week; its adjustments wait for the person's yes.
+    if (await auditDue(id).catch(() => false)) {
+      await writeAudit(id).then(
+        () => console.log(`[autosync] ${id}: energy audit written`),
+        (e) => console.error(`[autosync] ${id}: energy audit failed:`, e instanceof Error ? e.message : e),
+      );
+    }
     if (age(log[id]?.synced_at) >= SYNC_EVERY) {
       await mark(id, "synced_at");
       await syncConnectors(id, undefined, (await aiConfig()).engine === "claude" ? 60 : 4).catch((e) => console.error(`[autosync] ${id}: sync failed:`, e instanceof Error ? e.message : e));

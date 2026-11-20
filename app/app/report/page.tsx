@@ -79,6 +79,7 @@ export default function ReportPage() {
       <header className="gutter flex items-center gap-2 pt-[max(8px,env(safe-area-inset-top))]">
         <a className="icon-btn" href={h("/")} aria-label="Back to the map"><ArrowLeft /></a>
         <h1 className="min-w-0 flex-1 truncate text-[var(--text-h2)]">Report</h1>
+        <a className="btn btn-ghost" href={h("/energy")}>Energy Audit</a>
         <a className="btn btn-ghost" href={h("/soul-file")}>Soul file <ArrowRight size={16} /></a>
         <ThemeToggle />
       </header>

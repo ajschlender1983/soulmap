@@ -2,6 +2,8 @@
 
 **Know Thyself.**
 
+A whole human understanding system. It maps how you are built, then shapes how you work, and how your AI works with you, to fit.
+
 A 40 minute interview on your Mac that maps how you work: Human Design and Gene Keys from your birth data, then Enneagram, attachment, Big Five, chronotype and values from your answers. Connect Otter, Granola or Claude Code and it also learns from how you actually talk and work. It writes two documents: a report for you, and a soul file your AI tools read so they work the way you do.
 
 Website: https://soulmap.nextmissionsi.com

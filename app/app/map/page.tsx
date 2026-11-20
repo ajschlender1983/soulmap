@@ -38,6 +38,7 @@ export default function MapPage() {
       <section className="gutter safe-bottom pt-4">
         <MapDetails live={live} />
         {(status === "complete" || status === "reported") && <a className="btn btn-primary btn-block mt-4" href={h("/report")}>Read the report</a>}
+        <a className="btn btn-secondary btn-block mt-3" href={h("/energy")}>Energy Audit</a>
       </section>
     </main>
   );

@@ -34,7 +34,9 @@ export async function aiConfig(): Promise<AiConfig> {
   const s = await read();
   const key = s.anthropic_key || process.env.ANTHROPIC_API_KEY || undefined;
   const localModel = s.local_model || process.env.SOUL_LOCAL_MODEL || "qwen3:8b";
-  const engine: Engine | null = HOSTED ? "claude" : s.engine ?? (key ? "claude" : process.env.SOUL_LOCAL_MODEL ? "local" : null);
+  // SOUL_FORCE_ENGINE=local runs a test copy on the free local model whatever the settings say.
+  const forced = process.env.SOUL_FORCE_ENGINE === "local" ? "local" : null;
+  const engine: Engine | null = forced ?? (HOSTED ? "claude" : s.engine ?? (key ? "claude" : process.env.SOUL_LOCAL_MODEL ? "local" : null));
   return { engine: engine === "claude" && !key ? null : engine, key, localModel, chosen: !!s.engine || HOSTED };
 }
 

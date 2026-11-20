@@ -5,6 +5,8 @@ import { readState, updateState } from "./state";
 import { scoreAll } from "./score";
 import { DEFAULT_PROFILE } from "./profile";
 import { summarize as summarizePeers } from "./peer";
+import { energyForReport } from "./energy";
+import { withCheckin } from "./checkin";
 
 const ROOT = path.resolve(process.cwd(), "..");
 /** The default profile keeps report/ as before; anyone else gets report/profiles/<id>/. */
@@ -46,6 +48,8 @@ export async function generateReport(profileId: string = DEFAULT_PROFILE): Promi
     person: { name: s.profile.name, intention: s.profile.intention ?? null, birth_time_known: s.profile.birth_time_known },
     // Peer averages (items 2 and 7 already reverse-keyed) plus the two short open answers, each capped at 300 chars (PEER-INPUT.md).
     peer: summarizePeers(s.peer_responses),
+    // Energy Audit: check-in average, the latest weekly audit, and the adjustments the person said yes to.
+    energy_audit: await energyForReport(profileId).catch(() => null),
     // No transcript and no raw answer text: the writer receives structured inputs only (SPEC, Synthesis).
   };
 
@@ -70,7 +74,7 @@ export async function generateReport(profileId: string = DEFAULT_PROFILE): Promi
   await fs.writeFile(path.join(REPORT_DIR, "SOUL-MAP-agent.md"), agent.trim() + "\n");
   await fs.writeFile(path.join(REPORT_DIR, "scores.json"), JSON.stringify(scores, null, 2));
   await updateState((st) => { st.status = "reported"; }, profileId);
-  if (profileId === DEFAULT_PROFILE) await mirrorToLibrary(name, human.trim(), agent.trim()).catch(() => {});
+  if (profileId === DEFAULT_PROFILE) await mirrorToLibrary(name, human.trim(), withCheckin(agent)).catch(() => {});
   return { human: human.trim(), agent: agent.trim() };
 }
 
@@ -110,7 +114,7 @@ export async function readReports(profileId: string = DEFAULT_PROFILE) {
   const REPORT_DIR = reportDir(profileId);
   return {
     human: await readIf(path.join(REPORT_DIR, "SOUL-MAP-human.md")),
-    agent: await readIf(path.join(REPORT_DIR, "SOUL-MAP-agent.md")),
+    agent: withCheckin(await readIf(path.join(REPORT_DIR, "SOUL-MAP-agent.md"))),
   };
 }
 

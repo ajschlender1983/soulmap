@@ -52,7 +52,7 @@ Sections, in this order, each a level-2 heading:
 
 7. No-man's land — what to remove, delegate, or automate because it is not natural to them. Be specific; name the behaviors seen in the evidence.
 
-8. Energy — what gives it, what drains it, how to design a day and a week (defaults, overridable).
+8. Energy — what gives it, what drains it, how to design a day and a week (defaults, overridable). When `energy_audit` is in the input, the person's own 0-10 energy ratings and the adjustments they approved are the strongest evidence here; say so, and build on them.
 
 9. Working with people — how to brief them, how they give feedback and want it, what they need from a partner, friction patterns to watch (attachment + enneagram + HD strategy + Venus Sequence together).
    REQUIRED, directly after this section's prose: a subsection with the exact heading line `## How to work with {{NAME}}` (that heading, verbatim, on its own line). Under it, a bulleted list of at most 7 lines the team can read in 60 seconds: how to brief them, how to give them feedback, what to never do, what they are best used for. No other heading of that shape anywhere in the document. This subsection is the only part of Document 1 the team sees; nothing in it may rely on the rest of the report, and it uses no Human Design or Gene Keys terms.
