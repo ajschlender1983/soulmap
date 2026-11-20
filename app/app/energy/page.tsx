@@ -127,7 +127,7 @@ export default function EnergyPage() {
         {week && (
           <section className="card flex flex-col gap-3" id="tracked">
             <h2 className="text-[var(--text-h2)]">Tracked without asking</h2>
-            <p className="t-caption muted">The last 7 days, from your AI sessions and meetings. Timing only; your words stay in your evidence.</p>
+            <p className="t-caption muted">The last 7 days, from your AI sessions and meetings. The weekly audit also reads a sample of your own messages from the week, never anyone else's words.</p>
             <ul className="t-small flex flex-col gap-1.5">
               <li>Work with your AI: <b>{week.ai.hours} h</b> over {week.ai.days} days, {week.ai.sessions} sessions. Longest: {week.ai.longest_session_h} h.</li>
               <li>When: morning {week.ai.by_time.morning ?? 0} h, afternoon {week.ai.by_time.afternoon ?? 0} h, evening {week.ai.by_time.evening ?? 0} h, late night {week.ai.by_time["late night"] ?? 0} h.</li>
