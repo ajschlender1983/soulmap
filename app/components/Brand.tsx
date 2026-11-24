@@ -17,17 +17,25 @@ export function Plate({ name, size = "sm", rounded = false, position = "50% 50%"
   );
 }
 
-/** The Sacred Delta mark: the water triangle with the river held inside it, standing on the gold thread. */
-export function DeltaMark({ size = 28, thread = false, className = "" }: { size?: number; thread?: boolean; className?: string }) {
+/**
+ * The Sacred Delta mark, v2: the water triangle with two waves running through it. Two flows meet inside one shape.
+ * Always gold and centred. Full mark (two waves, hairline) at 56px or taller; compact (one wave) from 24 to 55px.
+ * `thread` draws the gold thread above it, for openers and finales. `draw` lets it draw itself on, once per page.
+ */
+export function DeltaMark({ size = 56, thread = false, draw = false, className = "" }: { size?: number; thread?: boolean; draw?: boolean; className?: string }) {
+  const full = size >= 56;
+  const waves = full ? [34, 52] : [38];
+  const dip = full ? 6 : 7;
+  const cls = draw ? "mark-draw" : undefined;
   return (
     <span className={`delta-mark ${className}`} aria-hidden="true">
       {thread && <span className="thread" />}
       <svg viewBox="0 0 140 84" height={size} fill="none" style={{ width: "auto", overflow: "visible" }}>
         <defs><clipPath id="tn-delta"><path d="M6 8 H134 L70 80 Z" /></clipPath></defs>
-        <g clipPath="url(#tn-delta)" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
-          {[24, 38, 52, 66].map((y) => <path key={y} d={`M0 ${y} q8.75 -9 17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0`} />)}
+        <g clipPath="url(#tn-delta)" stroke="currentColor" strokeWidth={full ? 1.7 : 2.6} strokeLinecap="round">
+          {waves.map((y, i) => <path key={y} className={cls ? `${cls} mark-wave` : undefined} pathLength={1} style={{ ["--w" as string]: i }} d={`M0 ${y} q8.75 -${dip} 17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0 t17.5 0`} />)}
         </g>
-        <path d="M6 8 H134 L70 80 Z" stroke="currentColor" strokeWidth="3.4" strokeLinejoin="miter" />
+        <path className={cls} pathLength={1} d="M6 8 H134 L70 80 Z" stroke="currentColor" strokeWidth={full ? 2.2 : 3.2} strokeLinejoin="miter" />
       </svg>
     </span>
   );

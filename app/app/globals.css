@@ -72,8 +72,8 @@
   --color-ok: #1f4a28;
   --color-warn: #8f5318;
   --color-danger: #a3321b;
-  --glow-top: rgba(247, 240, 227, 0.9);
-  --glow-ember: rgba(196, 162, 74, 0.16);
+  --glow-top: transparent;
+  --glow-ember: transparent;
   --shadow-card: 0 14px 34px rgba(44, 36, 22, 0.1);
   color-scheme: light;
 }
@@ -94,8 +94,8 @@
     --color-ok: #1f4a28;
     --color-warn: #8f5318;
     --color-danger: #a3321b;
-    --glow-top: rgba(247, 240, 227, 0.9);
-    --glow-ember: rgba(196, 162, 74, 0.16);
+    --glow-top: transparent;
+    --glow-ember: transparent;
     --shadow-card: 0 14px 34px rgba(44, 36, 22, 0.1);
     color-scheme: light;
   }
@@ -382,10 +382,18 @@ input[type="date"], input[type="time"] { -webkit-appearance: none; appearance: n
 .plate-band.rounded { border-radius: var(--radius-lg); }
 .plate-band.rounded::after { background: linear-gradient(to bottom, transparent 40%, color-mix(in srgb, var(--color-bg) 70%, transparent) 100%); }
 /* day mode: plates read as a print on paper */
-:root[data-theme="light"] .plate-band img { filter: saturate(0.92); }
-/* the delta mark and the gold thread above it */
-.delta-mark { display: inline-flex; flex-direction: column; align-items: center; color: var(--color-gold); }
-.delta-mark .thread { display: block; width: 1px; height: 28px; background: linear-gradient(to bottom, transparent, var(--color-gold)); }
+/* night: dim bright plates to about 80 percent so they do not glare; day shows them as printed */
+.plate-band img { filter: brightness(0.82); }
+:root[data-theme="light"] .plate-band img { filter: none; }
+@media (prefers-color-scheme: light) { :root[data-theme="auto"] .plate-band img { filter: none; } }
+/* the Sacred Delta mark (v2: two waves, hairline) and the gold thread above it. Always gold, always centred.
+   Full mark at 56px or taller, compact (one wave) from 24 to 55px. It may draw itself on once per page. */
+.delta-mark { display: flex; width: 100%; flex-direction: column; align-items: center; color: var(--color-gold); }
+.delta-mark .thread { display: block; width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--color-gold)); }
+.delta-mark .mark-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: mark-draw 1.8s cubic-bezier(0.4, 0.1, 0.2, 1) 0.2s forwards; }
+.delta-mark .mark-wave { animation-delay: calc(0.65s + var(--w, 0) * 0.2s); }
+@keyframes mark-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .delta-mark .mark-draw { animation: none; stroke-dashoffset: 0; } }
 .gold-thread { height: 1px; border: 0; background: linear-gradient(to right, transparent, var(--color-gold), transparent); }
 
 /* ---------- motion ---------- */

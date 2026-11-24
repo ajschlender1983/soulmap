@@ -6,7 +6,7 @@ import { Markdown, sections } from "@/components/Markdown";
 import { ThemeToggle } from "@/components/Theme";
 import { ArrowLeft, ArrowRight, Copy, Loader, Quote } from "@/components/Icons";
 import { lensName } from "@/components/interview-types";
-import { Plate, plateSrc } from "@/components/Brand";
+import { DeltaMark, Plate, plateSrc } from "@/components/Brand";
 
 type Status = "idle" | "in_chat" | "in_call" | "ended" | "complete" | "reported" | string;
 
@@ -149,6 +149,7 @@ export default function ReportPage() {
               <a className="btn btn-primary" href={h("/soul-file")}>Get the soul file <ArrowRight /></a>
             </div>
             {err && <p className="t-small mt-2 text-[var(--color-danger)]">{err}</p>}
+            <DeltaMark size={56} thread className="mt-12" />
           </>
         )}
       </div>
